@@ -19,17 +19,34 @@ description: > # this means to ignore newlines until "baseurl:"
   pinzolo の技術系 blog
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pinzolo.github.io" # the base hostname & protocol for your site
+
+username: pinzolo
+user_description: 京都に住んでるエンジニア
 twitter_username: pinzolo
 github_username:  pinzolo
 
 # Build settings
 markdown: kramdown
-theme: minima
-exclude: [vendor]
-gems:
-  - jemoji
-  - jekyll-redirect-from
-  - jekyll-sitemap
-  - jekyll-feed
-  - jekyll-paginate
-paginate: 10
+highlighter: rouge
+
+# html minify
+compress_html:
+  clippings: all
+  comments: all
+  endings: []
+  profile: false
+
+# Links to include in menu navigation
+# For external links add external: true
+links:
+  - title: Home
+    url: /
+  - title: Series
+    url: /series
+  - title: Tags
+    url: /tags
+  - title: About Me
+    url: /about
+
+# exclude my node related stuff
+exclude: ['package.json', 'src', 'node_modules', 'vendor']
