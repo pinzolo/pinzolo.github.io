@@ -16,9 +16,7 @@
 title: tail -f pinzo.log
 email: pinzolo@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  pinzolo の技術系 blog
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pinzolo.github.io" # the base hostname & protocol for your site
 twitter_username: pinzolo
@@ -28,3 +26,8 @@ github_username:  pinzolo
 markdown: kramdown
 theme: minima
 exclude: [vendor]
+gems:
+  - jemoji
+  - jekyll-redirect-from
+  - jekyll-sitemap
+  - jekyll-feed
