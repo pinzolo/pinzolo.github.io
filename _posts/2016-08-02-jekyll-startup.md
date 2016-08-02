@@ -23,3 +23,19 @@ bundle 使って環境整えたので、`bundle exec jekyll serve` したらこ�
 
 `_config.yml` だけでなく `Gemfile` にも追加して `bundle install` しておかないといけなかった
 
+### Github Pages でビルド失敗
+
+```
+The page build failed with the following error:
+
+A file was included in `about.md` that is a symlink or does not exist in your `_includes` directory. For more information, see https://help.github.com/articles/page-build-failed-file-is-a-symlink.
+
+For information on troubleshooting Jekyll see:
+
+  https://help.github.com/articles/troubleshooting-jekyll-builds
+
+If you have any questions you can contact us by replying to this email.
+```
+
+push したらこんなエラーメールが届いた。`jekyll new` で生成される `about.md` に含まれている `include` の対象が存在していないらしい。`about.me` を更新して `include` をなくしたらOK。
+
