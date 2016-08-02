@@ -21,7 +21,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pinzolo.github.io" # the base hostname & protocol for your site
 
 username: pinzolo
-user_description: 京都に住んでるエンジニア
 twitter_username: pinzolo
 github_username:  pinzolo
 
@@ -41,8 +40,6 @@ compress_html:
 links:
   - title: Home
     url: /
-  - title: Series
-    url: /series
   - title: Tags
     url: /tags
   - title: About Me
