@@ -23,6 +23,7 @@ url: "https://pinzolo.github.io" # the base hostname & protocol for your site
 username: pinzolo
 twitter_username: pinzolo
 github_username:  pinzolo
+gplus_username: MasatoNODA
 
 # Build settings
 markdown: kramdown
