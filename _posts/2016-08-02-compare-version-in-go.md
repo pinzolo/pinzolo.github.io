@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Go でバージョン比較
-description: 
+description:
 main-class: dev
 tags: golang
 ---
@@ -13,6 +13,7 @@ package main
 
 import (
     "fmt"
+    "os"
 
     "github.com/hashicorp/go-version"
 )
@@ -20,12 +21,12 @@ import (
 func main() {
     v1, err := version.NewVersion("9.3.1")
     if err != nil {
-        fmt.Fprintln(io.Stderr, err)
+        fmt.Fprintln(os.Stderr, err)
         return
     }
     v2, err := version.NewVersion("9.10.5")
     if err != nil {
-        fmt.Fprintln(io.Stderr, err)
+        fmt.Fprintln(os.Stderr, err)
         return
     }
     if v1.Compare(v2) >= 0 {
