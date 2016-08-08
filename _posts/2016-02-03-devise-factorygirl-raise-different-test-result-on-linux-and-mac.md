@@ -7,10 +7,9 @@ main-class: dev
 tags:
 - rails
 - ruby
-- test
-- linux
 - devise
 - mac
+- aws
 ---
 
 [tail -f pinzo.log: Deviseの有効期限設定をテストする](http://blog.mkt-sys.jp/2015/12/testing-devise-timelimits.html) で書いた有効期限検証のコードで不思議な事が起こった。Macでは正常にパスするのだが、Amazon Linux上ではパスしない。 ミニマムなコードで示すとこんな感じ

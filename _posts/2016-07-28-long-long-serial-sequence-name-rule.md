@@ -2,7 +2,7 @@
 layout: post
 title: "serialのシーケンスがなが～い名前になる場合"
 main-class: dev
-tags: postgres
+tags: postgresql
 ---
 
 PostgreSQLの `serial` はシーケンスを生成するわけだけども、シーケンスの名前は `table_name_column_name_seq` という形で生成される。`users` テーブルの `id` ならば `users_id_seq`という感じで
