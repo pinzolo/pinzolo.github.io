@@ -5,9 +5,9 @@ date: '2016-01-30T19:05:00.000+09:00'
 author: pinzolo
 main-class: dev
 tags:
+- devise
 - rails
 - ruby
-- devise
 ---
 
 管理者とユーザーでのログイン機能が存在し、別モデルで管理したい場合、Devise を使うと `scoped_views` をtrueにすれば簡単に実装できる。（参考：[Ruby - Railsでdeviseひとつで複数モデルを管理しよう - Qiita](http://qiita.com/Yama-to/items/54ab4ce08e126ef7dade)）

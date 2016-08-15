@@ -5,8 +5,8 @@ date: '2016-04-07T12:34:00.000+09:00'
 author: pinzolo
 main-class: vps
 tags:
-- ubuntu
 - jenkins
+- ubuntu
 ---
 
 ## Jenkinsのインストール

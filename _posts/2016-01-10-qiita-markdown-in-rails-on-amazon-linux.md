@@ -5,11 +5,11 @@ date: '2016-01-10T17:56:00.000+09:00'
 author: pinzolo
 main-class: dev
 tags:
-- rubygems
+- aws
 - markdown
 - rails
 - ruby
-- aws
+- rubygems
 ---
 
 ## インストール

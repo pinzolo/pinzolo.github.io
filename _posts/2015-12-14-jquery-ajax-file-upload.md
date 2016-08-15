@@ -5,9 +5,9 @@ date: '2015-12-14T11:53:00.000+09:00'
 author: pinzolo
 main-class: dev
 tags:
-- javascript
 - ajax
 - jQuery
+- javascript
 ---
 
 なんか毎回毎回うろ覚えでちょろちょろ調べながら書いている気がするのでメモとして

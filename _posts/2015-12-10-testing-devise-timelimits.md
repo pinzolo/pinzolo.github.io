@@ -5,9 +5,9 @@ date: '2015-12-10T15:26:00.001+09:00'
 author: pinzolo
 main-class: dev
 tags:
-- ruby
-- rails
 - devise
+- rails
+- ruby
 - testing
 ---
 

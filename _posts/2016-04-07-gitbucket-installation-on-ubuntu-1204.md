@@ -5,8 +5,8 @@ date: '2016-04-07T16:03:00.000+09:00'
 author: pinzolo
 main-class: vps
 tags:
-- ubuntu
 - gitbucket
+- ubuntu
 ---
 
 ## Tomcatのインストール

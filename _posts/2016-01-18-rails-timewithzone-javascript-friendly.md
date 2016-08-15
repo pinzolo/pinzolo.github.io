@@ -5,9 +5,9 @@ date: '2016-01-18T15:18:00.000+09:00'
 author: pinzolo
 main-class: dev
 tags:
+- javascript
 - rails
 - ruby
-- javascript
 ---
 
 JavaScript で `new Date(text)` や `Date.parse(text)` した時に読み込める形で TimeWithZone の値を出力したい。  

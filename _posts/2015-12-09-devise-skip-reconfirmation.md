@@ -5,9 +5,9 @@ date: '2015-12-09T10:31:00.001+09:00'
 author: pinzolo
 main-class: dev
 tags:
+- devise
 - rails
 - ruby
-- devise
 ---
 
 Devise を使用していて、手順を踏まずにシステムにてメールアドレスを変更すると保存時にメールが送信されてしまう。  
