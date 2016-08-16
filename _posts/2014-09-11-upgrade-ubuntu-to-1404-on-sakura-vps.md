@@ -7,7 +7,6 @@ main-class: vps
 tags:
 - redmine
 - ubuntu
-- vps
 ---
 
 さくらVPSにログインするとアップグレードできるよって通知が出ていたので、14.04 にアップグレードしやした。
