@@ -5,9 +5,9 @@ date: '2016-02-25T11:08:00.001+09:00'
 author: pinzolo
 main-class: dev
 tags:
-- DOMA
-- JDBC
+- doma
 - java
+- jdbc
 - postgresql
 ---
 
@@ -25,7 +25,7 @@ WHERE roles ? 'ADMIN';
 
 といった使い方ができる。
 
-ところが、例えば DOMA のようなフレームワークやバックエンドでJDBCを使っているツールなどではエラーとなる。
+ところが、例えば DOMA のようなフレームワークやバックエンドで JDBC を使っているツールなどではエラーとなる。
 
 ![](https://4.bp.blogspot.com/-LhSuaq3ufdk/Vs5hYj0FjyI/AAAAAAAAaCQ/eRQS1KXe0-k/s320/json-operator-error.png)
 
