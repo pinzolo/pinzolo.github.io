@@ -32,6 +32,7 @@
 POST_TITLE="${@:2:$(($#-1))}"
 POST_NAME="$(echo ${@:2:$(($#-1))} | sed -e 's/ /-/g' | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/")"
 CURRENT_DATE="$(date +'%Y-%m-%d')"
+TIMESTAMP="$(date +%Y-%m-%dT%H:%M:%S%z)"
 TIME=$(date +"%T")
 FILE_NAME="${CURRENT_DATE}-${POST_NAME}.md"
 # ----------------------------------------------------------------
@@ -46,7 +47,7 @@ POSTPATH="${BINPATH}/_posts"
 DIST_FOLDER="$POSTPATH"
 
 # Set your blog URL
-BLOG_URL="https://willianjusten.com.br"
+BLOG_URL="https://pinzolo.github.io"
 
 # Set your assets URL
 ASSETS_URL="assets/img/"
@@ -112,15 +113,9 @@ initpost_content() {
 echo "---"
 echo "layout: post"
 echo "title: \"${POST_TITLE}\""
-echo "date: ${CURRENT_DATE} ${TIME}"
-echo "image: '/assets/img/'"
-echo "description:"
+echo "date: '${TIMESTAMP}'"
 echo "main-class:"
-echo "color:"
 echo "tags:"
-echo "categories:"
-echo "twitter_text:"
-echo "introduction:"
 echo "---"
 
 }
