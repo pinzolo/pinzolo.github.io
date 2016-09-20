@@ -25,6 +25,8 @@ $ sudo aptitude purge linux-image-3.13.0-77-generic linux-image-3.13.0-78-generi
 
 ## Redmine の最新化
 
+現状の環境で最新 Redmine が動くことを確認しておく
+
 ```sh
 $ cd /var/lib/rails/redmine
 $ sh update_redmine.sh 3.3.0
@@ -57,7 +59,17 @@ $ gem install passenger
 $ /opt/ruby/ruby-2.3.1/bin/passenger-install-apache2-module
 ```
 
-完了後に表示される設定で `/etc/apache2/mods-enabled/passenger.load` と `/etc/apache2/mods-enabled/passenger.conf` を更新して、apache を再起動
+完了後に表示される設定で `/etc/apache2/mods-enabled/passenger.load` と `/etc/apache2/mods-enabled/passenger.conf` を更新
+
+## Redmine の gem を再インストール
+
+```sh
+$ cd /var/lib/rails/redimne
+$ rm -rf vendor/bundle
+$ rm Gemfile.lock
+$ bundle install --path vendor/bundle
+$ service apache2 restart
+```
 
 ## 感想
 
