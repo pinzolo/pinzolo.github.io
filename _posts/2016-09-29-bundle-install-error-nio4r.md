@@ -4,9 +4,9 @@ title: bundle install で nio4r のインストールに失敗
 date: '2016-09-29T19:28:18+0900'
 main-class: dev
 tags:
-  - ruby
-  - rails
   - mac
+  - rails
+  - ruby
 ---
 
 久しぶりに rails app 作るかと `bundle install` したら下記のエラーを得た。
