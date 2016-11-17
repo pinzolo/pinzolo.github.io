@@ -66,7 +66,7 @@ hooks ディレクトリを作成し、スクリプトファイルを作成す�
 // db/hooks/dev_after_each_up.js
 switch (hookContext.getChange().getId()) {
   case 20161117175523: // create_users.sql
-    hookContext.executeSql("INSERT INTO users (login, password) VALUES ('admin', 'admin@example.com', 'システム管理者');");
+    hookContext.executeSql("INSERT INTO users (login, email, name) VALUES ('admin', 'admin@example.com', 'システム管理者');");
     break;
 }
 ```
