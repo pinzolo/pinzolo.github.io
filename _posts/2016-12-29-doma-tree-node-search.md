@@ -57,7 +57,7 @@ public interface TreeDao {
 ```
 
 ```sql
-SELECT *
+SELECT /*%expand*/*
 FROM tree
 WHERE path @> ARRAY[/*rootNodeiId*/0]
 ```
@@ -77,16 +77,16 @@ WHERE path @> ARRAY[10
 @InjectConfig
 public interface TreeDao {
   @Select
-  List<Node> selectNodesWithDescendants(String arrayExpr);
+  List<Node> selectWithDescendants(String arrayExpr);
 
-  default List<Node> selectNodesWithDescendants(Integer rootNodeId) {
-    return "ARRAY[" + rootNodeId + "]";
+  default List<Node> selectWithDescendants(Integer rootNodeId) {
+    return selectWithDescendants("ARRAY[" + rootNodeId + "]");
   }
 }
 ```
 
 ```sql
-SELECT *
+SELECT /*%expand*/*
 FROM tree
 WHERE path @> /*# arrayExpr */
 ```
@@ -138,7 +138,7 @@ public interface TreeDao {
 SQLは埋め込み変数コメントとカスタム関数を組み合わせる。
 
 ```sql
-SELECT *
+SELECT /*%expand*/*
 FROM tree
 WHERE path @> /*# @toArrayExpr(rootNodeId) */
 ```
