@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DOMAで隣接リストなtreeの検索"
+title: "Domaで隣接リストなtreeの検索"
 date: '2016-12-29T19:22:16+0900'
 main-class: dev
 tags:
