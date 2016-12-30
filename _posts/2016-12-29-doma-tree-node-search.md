@@ -98,17 +98,15 @@ WHERE path @> /*# arrayExpr */
 public class PgExpressionFunctions extends StandardExpressionFunctions {
   public String toArrayExpr(Object obj) throws SQLException {
     String val = null;
-    if (obj instanceof Number) {
-      val = obj.toString();
-    } else if (obj instanceof Iterable) {
+    if (obj instanceof Iterable) {
       List<String> escapedValues = new ArrayList<>();
       Iterable<?> it = (Iterable<?>) obj;
       for (Object v : it) {
-        escapedValues.add(toSqlExpr(v));
+        escapedValues.add(toSqlValueExpr(v));
       }
       val = String.join(", ", escapedValues);
     } else {
-      val = toSqlExpr(obj.toString());
+      val = toSqlValueExpr(obj);
     }
     return "ARRAY[" + val + "]";
   }
