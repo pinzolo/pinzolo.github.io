@@ -28,7 +28,7 @@ WITH RECURSIVE r AS (
        , r.path || n.id AS path
   FROM node n
   INNER JOIN r
-  ON r.id = c.parent_id
+  ON r.id = n.parent_id
 )
 SELECT *
      , array_length(path, 1) AS depth
@@ -101,25 +101,26 @@ public class PgExpressionFunctions extends StandardExpressionFunctions {
     if (obj instanceof Number) {
       val = obj.toString();
     } else if (obj instanceof Iterable) {
-      List<String> escapedValues = Lists.newArrayList();
+      List<String> escapedValues = new ArrayList<>();
       Iterable<?> it = (Iterable<?>) obj;
       for (Object v : it) {
         escapedValues.add(toSqlExpr(v));
       }
-      val = Strings.join(escapedValues, ',');
+      val = String.join(", ", escapedValues);
     } else {
       val = toSqlExpr(obj.toString());
     }
     return "ARRAY[" + val + "]";
   }
 
-  private String toSqlExpr(Object obj) throws SQLException {
+  private String toSqlValueExpr(Object obj) throws SQLException {
     if (obj instanceof Number) {
       return obj.toString();
     }
 
+    StringBuilder builder = new StringBuilder("'");
     // Utils は org.postgresql.core.Utils
-    return "'" + Utils.escapeLiteral(new StringBuilder(), obj.toString(), false).toString() + "'";
+    return Utils.escapeLiteral(builder, obj.toString(), false).append("'").toString();
   }
 }
 ```
@@ -144,3 +145,52 @@ WHERE path @> /*# @toArrayExpr(rootNodeId) */
 ```
 
 これで、やりたいことがシンプルにできるようになった。
+
+追記：テストコードも置いておこう（Spock）
+
+```groovy
+package pinzolo.doma.postgresql
+
+import spock.lang.Shared
+import spock.lang.Specification
+
+class PgExpressionFunctionsTest extends Specification {
+  @Shared
+  def funcs = new PgExpressionFunctions();
+
+  def "数値の配列表現"() {
+    expect:
+    funcs.toArrayExpr(1) == "ARRAY[1]"
+  }
+
+  def "文字列の配列表現"() {
+    expect:
+    funcs.toArrayExpr("foo") == "ARRAY['foo']"
+  }
+
+  def "文字列の場合はエスケープされる"() {
+    expect:
+    funcs.toArrayExpr("foo'bar\\") == "ARRAY['foo''bar\\\\']"
+  }
+
+  def "コレクションは展開される"() {
+    expect:
+    funcs.toArrayExpr([1, 2, 3]) == "ARRAY[1, 2, 3]"
+  }
+
+  def "コレクションでもエスケープされる"() {
+    expect:
+    funcs.toArrayExpr(["foo'bar", "foo\\bar"]) == "ARRAY['foo''bar', 'foo\\\\bar']"
+  }
+
+  def "その他のオブジェクトは文字列化"() {
+    expect:
+    funcs.toArrayExpr(new StringBuilder("foo")) == "ARRAY['foo']"
+  }
+
+  def "その他のオブジェクトでもエスケープされる"() {
+    expect:
+    funcs.toArrayExpr(new StringBuilder("foo'bar\\")) == "ARRAY['foo''bar\\\\']"
+  }
+}
+```
