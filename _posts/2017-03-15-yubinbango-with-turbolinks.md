@@ -6,6 +6,7 @@ main-class: dev
 tags:
   - javascript
   - rails
+  - ruby
   - turbolinks
   - yubinbango
 ---
