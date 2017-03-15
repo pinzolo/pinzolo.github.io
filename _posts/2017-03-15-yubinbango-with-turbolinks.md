@@ -28,13 +28,13 @@ tags:
     <div class="form-group">
       <%= f.label :zip_code, class: "col-sm-2 control-label" %>
       <div class="col-sm-2">
-        <%= f.text_field :home_zip_code, class: "form-control p-postal-code" %>
+        <%= f.text_field :zip_code, class: "form-control p-postal-code" %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :address, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
-        <%= f.text_field :home_address, class: "form-control p-region p-locality p-street-address p-extended-address" %>
+        <%= f.text_field :address, class: "form-control p-region p-locality p-street-address p-extended-address" %>
       </div>
     </div>
   </div>
