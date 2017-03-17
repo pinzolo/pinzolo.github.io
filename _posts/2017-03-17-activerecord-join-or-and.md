@@ -137,6 +137,7 @@ name = Member.arel_table[:name].eq('foo')
 kana = Member.arel_table[:kana].eq('foo')
 mail = Email.arel_table[:address].eq('foo')
 Member.joins(:emails).where(age.and(name.or(kana).or(mail)))
+#=> SELECT "members".* FROM "members" INNER JOIN "emails" ON "emails"."member_id" = "members"."id" WHERE ("members"."generation" IN (21, 22, 23) AND (("members"."given_name" = 'foo' OR  "members"."given_kana" = 'foo') OR "emails"."address" = 'foo'))
 ```
 
 ```sql
