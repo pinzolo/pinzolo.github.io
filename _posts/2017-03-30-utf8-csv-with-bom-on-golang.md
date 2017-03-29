@@ -56,7 +56,6 @@ func newCsvReader(r io.Reader) *csv.Reader {
 	}
 	if bs[0] == 0xEF && bs[1] == 0xBB && bs[2] == 0xBF {
 		br.Discard(3)
-		bom = true
 	}
 	return csv.NewReader(br)
 }
