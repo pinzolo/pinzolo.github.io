@@ -50,7 +50,7 @@ Golang の `csv` パッケージは UTF8 の BOM には対応していなくて�
 ```go
 func newCsvReader(r io.Reader) *csv.Reader {
 	br := bufio.NewReader(r)
-	bs, err := br.Peek(l)
+	bs, err := br.Peek(3)
 	if err != nil {
 		return csv.NewReader(br)
 	}
