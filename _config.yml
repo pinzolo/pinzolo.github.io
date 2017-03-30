@@ -14,9 +14,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: tail -f pinzo.log
-email: 
-description: > # this means to ignore newlines until "baseurl:"
-  pinzolo の技術系 blog
+email:
+description: pinzolo の技術系 blog
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pinzolo.github.io" # the base hostname & protocol for your site
 
@@ -48,3 +47,11 @@ links:
 
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules', 'vendor']
+
+gems:
+  - jemoji
+  - jekyll-redirect-from
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
