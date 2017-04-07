@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "echo-of-on-pry"
+title: "pry で返り値が表示されないようにする"
 date: '2017-04-08T01:36:03+0900'
 main-class: dev
 tags:
@@ -12,7 +12,7 @@ tags:
 
 `pry` では最後に `;` をつければ返り値を表示しなくなります。
 
-```sh
+```ruby
 [1] pry(main)> (1...100).to_a.each { |i| puts i if i % 10 == 0 }
 10
 20
@@ -33,12 +33,12 @@ tags:
  8,
  9,
  ....
- ```
+```
 
  みたいなのが
 
- ```sh
- [1] pry(main)> (1...100).to_a.each { |i| puts i if i % 10 == 0 };
+```ruby
+[1] pry(main)> (1...100).to_a.each { |i| puts i if i % 10 == 0 };
 10
 20
 30
