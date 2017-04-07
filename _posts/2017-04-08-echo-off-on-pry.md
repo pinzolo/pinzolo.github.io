@@ -4,8 +4,8 @@ title: "pry で返り値が表示されないようにする"
 date: '2017-04-08T01:36:03+0900'
 main-class: dev
 tags:
-  - ruby
   - pry
+  - ruby
 ---
 
 [最後にnilを付けてrails consoleで無駄に表示される大量のデータを抑制する \- Qiita](http://qiita.com/jnchito/items/f80818a36b7795391751) にコメントしたけど備忘録的メモとして。
