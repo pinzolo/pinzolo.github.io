@@ -158,4 +158,22 @@ $ ssh host -p 22222
 +PS1='${debian_chroot:+($debian_chroot)}\u@\H:\w\$ '
 ```
 
+## UTF-8 を表示できるように
+
+デフォルトでは LANG=C になっていた。これでは日本語が表示できない。
+
+```bash
+% sudo cat /etc/default/locale
+LANG="C"
+% sudo vi /etc/default/locale
+```
+
+```diff
+-LANG="C"
++LANG="en_US.UTF-8"
++LANGUAGE="en_US:"
+```
+
+表示さえできればよいので、言語は英語のままで。
+
 とりあえず今日はここまで。
