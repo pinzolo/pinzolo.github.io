@@ -7,9 +7,7 @@ tags:
 - golang
 ---
 
-{% raw %}
-
-`text/template` のサンプルをいくつか見てみたところ、構造体を渡してフィールドを埋め込んで表示するサンプルばかりだった。じゃあメソッド呼べるの？と思ったので試してみた。 
+`text/template` のサンプルをいくつか見てみたところ、構造体を渡してフィールドを埋め込んで表示するサンプルばかりだった。じゃあメソッド呼べるの？と思ったので試してみた。
 
 ```go
 package main
@@ -50,7 +48,7 @@ main.main()
 exit status 2
 ```
 
-できなかった。 
+できなかった。
 
 括弧が unexpected なら、括弧なしならどうなの？？
 
@@ -88,7 +86,7 @@ func main() {
 pinzolo(36) lives in Kyoto.
 ```
 
-出来た。正直言って予想外だった。 
+出来た。正直言って予想外だった。
 
 じゃあ、引数はどうやって渡すの？
 
@@ -166,7 +164,7 @@ func main() {
 pinzolo(36) lives in Kyoto. 2 years later he is 38.
 ```
 
-出来た。 
+出来た。
 
 じゃあ2つ以上の引数はスペース区切りかな？
 
@@ -208,7 +206,7 @@ func main() {
 pinzolo(36) lives in Kyoto. 5 years later he is 41.
 ```
 
-やっぱり。 
+やっぱり。
 
 趣向を変えて、構造体のポインタを渡してもうまく動くかな？
 
@@ -287,5 +285,3 @@ pinzolo(36) lives in Kyoto. 2 years later he is 38.
 問題ない。構造体に定義したメソッドもポインタに定義したメソッドも呼び出せてる。
 
 結構色々出来るんだな `text/template`
-
-{% endraw %}
