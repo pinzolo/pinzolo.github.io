@@ -33,4 +33,4 @@ tags:
 1. 珍しく一発で全パターンのCIが通ったのでバージョンを上げる[\#17 Up to v1\.4\.0 · pinzolo/rails\-flog@a6a2919](https://github.com/pinzolo/rails-flog/commit/a6a2919ea525a5fa23301eac31bee80672ee4843)
 1. `bundle exec rake release`
 
-お疲れ様でした。``
+お疲れ様でした。
