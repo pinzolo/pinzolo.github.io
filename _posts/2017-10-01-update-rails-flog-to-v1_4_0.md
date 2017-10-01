@@ -22,7 +22,7 @@ tags:
 1. テストが通ったので master にマージするためバージョン指定を元に戻す。[\#17 Restore dependency version · pinzolo/rails\-flog@bad5a46](https://github.com/pinzolo/rails-flog/commit/bad5a4662ee894654e958b012cb9c26298a69f9a)
 1. Rails5.0にバージョン指定。[\#17 Set rails version to 5\.0\.x · pinzolo/rails\-flog@cff5d61](https://github.com/pinzolo/rails-flog/commit/cff5d617c4d226e9a734c082fc625764f0da6cac)
 1. Rails 5.0 に対応（1 commit にしてしまったので変更点を列挙）[\#17 Rails 5\.0 compatible · pinzolo/rails\-flog@973f3af](https://github.com/pinzolo/rails-flog/commit/973f3af19572559329f88a12a92068452746c7bc)
-  1. `nothing` は削除されるよって警告が出てきたので削除。
+  1. `render nothing: true` は削除されるよって警告が出てきたので `head` に変更。
   1. テスト時に使用する `get` メソッドのパラメータ指定形式が変わるよっていうので対応したら、4.2で通らなくなったので苦肉の策で対応。
   1. Rails 5.0 になったらパラメータの順序が入れ替わったので、順序を気にしなくていいようにログの文字列から Hash を作って中身比較。
 1. テストが通ったので master にマージするためバージョン指定を元に戻す。[\#17 Restore rails version dependency · pinzolo/rails\-flog@1f87c2b](https://github.com/pinzolo/rails-flog/commit/1f87c2b1d17b5b7f90f618930bc1f1dee3f7915c)
