@@ -10,9 +10,9 @@ tags:
 
 先日作成した [pinzolo/spwd: Secret file based password management tool](https://github.com/pinzolo/spwd) をアップデートしたついでにふと [pinzolo/rails\-flog: Rails log formatter for Parameters and SQL](https://github.com/pinzolo/rails-flog) を覗いてみた。すると、なんか issue が 3 とかなってる。
 
-んで [compatibility for Rails5\.1 · Issue \#17 · pinzolo/rails\-flog](https://github.com/pinzolo/rails-flog/issues/17) という issue が登録されている。あれ？？そんなメールは Github から来た覚えないぞ？？どうしてだ？と思いつつ確認してみた。
+んで [compatibility for Rails5\.1 · Issue \#17 · pinzolo/rails\-flog](https://github.com/pinzolo/rails-flog/issues/17) という issue が登録されている。あれ？？そんなメールは Github から来た覚えないぞ？？どうしてだ？
 
-というか `alias_method_chain` が削除されるって話は知っていたので `prepend` に書き直さなきゃなと思って忘れていた。
+内容は Rails5.1 で動かないよって話。 `alias_method_chain` が削除されるって話は知っていたので `prepend` に書き直さなきゃなと思って忘れていた。
 
 というわけで作業ログ
 
