@@ -7,9 +7,9 @@ tags:
 - golang
 ---
 
-{% raw %}
 `text/template` のサンプルをいくつか見てみたところ、構造体を渡してフィールドを埋め込んで表示するサンプルばかりだった。じゃあメソッド呼べるの？と思ったので試してみた。
 
+{% raw %}
 ```go
 package main
 
@@ -282,8 +282,8 @@ func main() {
 ```
 pinzolo(36) lives in Kyoto. 2 years later he is 38.
 ```
+{% endraw %}
 
 問題ない。構造体に定義したメソッドもポインタに定義したメソッドも呼び出せてる。
 
 結構色々出来るんだな `text/template`
-{% endraw %}
