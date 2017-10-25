@@ -52,7 +52,7 @@ Vue.use(VeeValidate, { locale: 'ja' })
 フィールド名を日本語化するには `data-vv-as` 属性を使う。
 
 ```html
-<input type="text" name="tel" placeholder="03-1234-5678" class="form-control" v-model="tel" data-vv-as="電話番号" v-validate="'regex:^0[1-9][0-9]{0,4}-[0-9]{1,5}-[0-9]{1,5}$'">
+<input type="text" name="tel" placeholder="03-1234-5678" class="form-control" v-model="tel" data-vv-as="電話番号" v-validate="{ regex: /^0[1-9][0-9]{0,4}-[0-9]{1,5}-[0-9]{1,5}$/ }">
 ```
 
 こんな感じ。
