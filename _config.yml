@@ -55,3 +55,5 @@ gems:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-seo-tag
+
+theme: jekyll-theme-cayman
