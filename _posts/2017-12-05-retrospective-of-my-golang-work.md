@@ -56,6 +56,7 @@ XDG Based directory を扱うためのライブラリ。同様のものはいく
 コマンドラインのパラメータを指定したテンプレートに適用して結果をはき出すツール。スニペットのようなもの。  
 最近の案件では [Welcome to Doma — Doma 2\.0 ドキュメント](https://doma.readthedocs.io/ja/stable/) を使用していて、ドメインクラスをはき出すために使っていたりする。
 
+{% raw %}
 ```
 package foo.value{{if .pkg}}.{{.pkg}}{{end}};
 
@@ -77,6 +78,7 @@ public class {{.name}} extends Value<{{.type}}> {
   }
 }
 ```
+{% endraw %}
 
 というテンプレートを `~/.local/share/domain.tmpl` に配置して `tmpl domain pkg:bar type:String name:UserName` とすれば、下記のコードをはき出す。
 

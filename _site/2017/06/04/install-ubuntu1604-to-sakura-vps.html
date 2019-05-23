@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>さくらのVPSを Ubuntu 16.04 にリニューアル | tail -f pinzo.log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="さくらのVPSを Ubuntu 16.04 にリニューアル" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="さくらのVPSのOSをいったんリセットした。新しく Ubuntu 16.04 をインストールしたのでそのメモ。" />
+<meta property="og:description" content="さくらのVPSのOSをいったんリセットした。新しく Ubuntu 16.04 をインストールしたのでそのメモ。" />
+<link rel="canonical" href="http://localhost:4000/2017/06/04/install-ubuntu1604-to-sakura-vps.html" />
+<meta property="og:url" content="http://localhost:4000/2017/06/04/install-ubuntu1604-to-sakura-vps.html" />
+<meta property="og:site_name" content="tail -f pinzo.log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-04T14:56:55+09:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2017/06/04/install-ubuntu1604-to-sakura-vps.html","headline":"さくらのVPSを Ubuntu 16.04 にリニューアル","dateModified":"2017-06-04T14:56:55+09:00","datePublished":"2017-06-04T14:56:55+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2017/06/04/install-ubuntu1604-to-sakura-vps.html"},"description":"さくらのVPSのOSをいったんリセットした。新しく Ubuntu 16.04 をインストールしたのでそのメモ。","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="tail -f pinzo.log" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">tail -f pinzo.log</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">さくらのVPSを Ubuntu 16.04 にリニューアル</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-06-04T14:56:55+09:00" itemprop="datePublished">Jun 4, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>さくらのVPSのOSをいったんリセットした。新しく Ubuntu 16.04 をインストールしたのでそのメモ。</p>
+
+<h2 id="ubuntu-1604-のインストール">Ubuntu 16.04 のインストール</h2>
+
+<ol>
+  <li>コントロールパネルの “各種設定” -&gt; “OSインストール” -&gt; “標準OSインストール” を選択</li>
+  <li>インストールOSは “Ubuntu 16.04 amd64” を選択し、管理ユーザのパスワードを設定</li>
+  <li>“設定内容を確認する” -&gt; “インストールを実行する” をクリック</li>
+  <li>ステータスが “稼働中” になるまで待機</li>
+</ol>
+
+<h3 id="作業ユーザーを作成">作業ユーザーを作成</h3>
+
+<p>デフォルトの管理ユーザーは <code class="highlighter-rouge">ubuntu</code> となるので、自分が使いやすいユーザーを登録する。</p>
+
+<ol>
+  <li><code class="highlighter-rouge">adduser myuser</code> とし、パスワードを設定</li>
+  <li><code class="highlighter-rouge">sudo</code> が使用できるように <code class="highlighter-rouge">sudo gpasswd -a myuser sudo</code> を実行</li>
+  <li>ログアウトし、作成したユーザーでログインする</li>
+</ol>
+
+<h3 id="初回アップデート">初回アップデート</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">sudo </span>apt update
+% <span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h2 id="ssh">SSH</h2>
+
+<h3 id="公開鍵をコピー">公開鍵をコピー</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>scp .ssh/id_rsa.pub user@host:~/
+</code></pre></div></div>
+
+<h3 id="ssh-の設定">.ssh の設定</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh user@host
+% <span class="nb">mkdir</span> .ssh
+% <span class="nb">cat </span>id_rsa.pub <span class="o">&gt;&gt;</span> .ssh/authorized_keys
+% <span class="nb">chmod </span>600 .ssh/authorized_keys
+% <span class="nb">chmod </span>700 .ssh
+% <span class="nb">exit</span>
+</code></pre></div></div>
+
+<h3 id="秘密鍵でログインできるか確認">秘密鍵でログインできるか確認</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh host
+</code></pre></div></div>
+
+<h3 id="rootログインとパスワードでの認証を禁止する">rootログインとパスワードでの認証を禁止する</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">sudo </span>vi /etc/ssh/sshd_config
+</code></pre></div></div>
+
+<h4 id="root-ログイン禁止">root ログイン禁止</h4>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-PermitRootLogin prohibit-password
+</span><span class="gi">+PermitRootLogin no
+</span></code></pre></div></div>
+
+<h4 id="パスワード認証禁止">パスワード認証禁止</h4>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-PasswordAuthentication yes
+</span><span class="gi">+PasswordAuthentication no
+</span></code></pre></div></div>
+
+<h4 id="ssh-の再起動">ssh の再起動</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">sudo </span>service ssh restart
+</code></pre></div></div>
+
+<h4 id="確認">確認</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh root@host
+permission denied <span class="o">(</span>publickey<span class="o">)</span><span class="nb">.</span> <span class="c"># ログイン不可</span>
+</code></pre></div></div>
+
+<h3 id="使用するポートを変更する">使用するポートを変更する</h3>
+
+<h4 id="sshd_config-を変更する">sshd_config を変更する</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">sudo </span>vi /etc/ssh/sshd_config
+</code></pre></div></div>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-Port 22
+</span><span class="gi">+Port 12345
+</span></code></pre></div></div>
+
+<h4 id="services-の設定も変更する">services の設定も変更する</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">sudo </span>vi /etc/services
+</code></pre></div></div>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-ssh             22/tcp                               # SSH Remote Login Protocol
+-ssh             22/udp
+</span><span class="gi">+ssh             12345/tcp                               # SSH Remote Login Protocol
++ssh             12345/udp
+</span></code></pre></div></div>
+
+<h4 id="iptables-の設定">iptables の設定</h4>
+
+<p>ポートの設定は変更したが、デフォルトでは <code class="highlighter-rouge">iptables</code> により 22 番ポートでの接続しか許可されていないので上書きする。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># iptables-persistent をインストール</span>
+<span class="c"># このとき現在の設定から rules.v4, rules.v6 が作成される</span>
+% <span class="nb">sudo </span>apt <span class="nb">install </span>iptables-persistent
+
+<span class="c"># 設定スクリプトを作成</span>
+% <span class="nb">sudo </span>vi /etc/iptables/iptables.sh
+
+<span class="c"># 設定スクリプトを実行</span>
+% <span class="nb">sudo </span>sh /etc/iptables/iptables.sh
+
+<span class="c"># 正しく設定されているかを確認</span>
+% <span class="nb">sudo </span>iptables <span class="nt">-L</span>
+Chain INPUT <span class="o">(</span>policy DROP<span class="o">)</span>
+target     prot opt <span class="nb">source               </span>destination
+ACCEPT     all  <span class="nt">--</span>  anywhere             anywhere
+DROP       all  <span class="nt">--</span>  10.0.0.0/8           anywhere
+DROP       all  <span class="nt">--</span>  172.16.0.0/12        anywhere
+DROP       all  <span class="nt">--</span>  192.168.0.0/16       anywhere
+ACCEPT     icmp <span class="nt">--</span>  anywhere             anywhere             icmp echo-request
+ACCEPT     all  <span class="nt">--</span>  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     tcp  <span class="nt">--</span>  anywhere             anywhere             tcp dpt:http
+ACCEPT     tcp  <span class="nt">--</span>  anywhere             anywhere             tcp dpt:https
+ACCEPT     tcp  <span class="nt">--</span>  anywhere             anywhere             tcp dpt:12345
+LOG        all  <span class="nt">--</span>  anywhere             anywhere             limit: avg 1/sec burst 5 LOG level warning prefix <span class="s2">"[IPTABLES INPUT] : "</span>
+DROP       all  <span class="nt">--</span>  anywhere             anywhere
+
+Chain FORWARD <span class="o">(</span>policy DROP<span class="o">)</span>
+target     prot opt <span class="nb">source               </span>destination
+LOG        all  <span class="nt">--</span>  anywhere             anywhere             limit: avg 1/sec burst 5 LOG level warning prefix <span class="s2">"[IPTABLES FORWARD] : "</span>
+DROP       all  <span class="nt">--</span>  anywhere             anywhere
+
+Chain OUTPUT <span class="o">(</span>policy ACCEPT<span class="o">)</span>
+target     prot opt <span class="nb">source               </span>destination
+ACCEPT     all  <span class="nt">--</span>  anywhere             anywhere
+
+<span class="c"># rules.v4 が更新されているかを確認</span>
+% <span class="nb">sudo cat</span> /etc/iptables/rules.v4
+<span class="c"># Generated by iptables-save v1.4.21 on Sun Jun 11 15:24:04 2017</span>
+<span class="k">*</span>filter
+:INPUT DROP <span class="o">[</span>0:0]
+:FORWARD DROP <span class="o">[</span>0:0]
+:OUTPUT ACCEPT <span class="o">[</span>0:0]
+<span class="nt">-A</span> INPUT <span class="nt">-i</span> lo <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> INPUT <span class="nt">-s</span> 10.0.0.0/8 <span class="nt">-j</span> DROP
+<span class="nt">-A</span> INPUT <span class="nt">-s</span> 172.16.0.0/12 <span class="nt">-j</span> DROP
+<span class="nt">-A</span> INPUT <span class="nt">-s</span> 192.168.0.0/16 <span class="nt">-j</span> DROP
+<span class="nt">-A</span> INPUT <span class="nt">-p</span> icmp <span class="nt">-m</span> icmp <span class="nt">--icmp-type</span> 8 <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> INPUT <span class="nt">-m</span> state <span class="nt">--state</span> RELATED,ESTABLISHED <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 80 <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 443 <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 12345 <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> INPUT <span class="nt">-m</span> limit <span class="nt">--limit</span> 1/sec <span class="nt">-j</span> LOG <span class="nt">--log-prefix</span> <span class="s2">"[IPTABLES INPUT] : "</span>
+<span class="nt">-A</span> INPUT <span class="nt">-j</span> DROP
+<span class="nt">-A</span> FORWARD <span class="nt">-m</span> limit <span class="nt">--limit</span> 1/sec <span class="nt">-j</span> LOG <span class="nt">--log-prefix</span> <span class="s2">"[IPTABLES FORWARD] : "</span>
+<span class="nt">-A</span> FORWARD <span class="nt">-j</span> DROP
+<span class="nt">-A</span> OUTPUT <span class="nt">-o</span> lo <span class="nt">-j</span> ACCEPT
+COMMIT
+<span class="c"># Completed on Sun Jun 11 15:24:04 2017</span>
+
+<span class="c"># 現在の設定を永続化する</span>
+<span class="c"># ここは ipatables-persistent ではなく netfilter-persistent となるのに注意</span>
+% <span class="nb">sudo </span>service netfilter-persistent start
+</code></pre></div></div>
+
+<p>ちなみに iptables.sh の中身</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+<span class="c"># Initialize table</span>
+/sbin/iptables <span class="nt">-F</span>
+<span class="c"># Delete declaration chain</span>
+/sbin/iptables <span class="nt">-X</span>
+
+<span class="c"># Set default rules</span>
+/sbin/iptables <span class="nt">-P</span> INPUT DROP
+/sbin/iptables <span class="nt">-P</span> OUTPUT ACCEPT
+/sbin/iptables <span class="nt">-P</span> FORWARD DROP
+
+<span class="c"># Allow access from localhost</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-i</span> lo <span class="nt">-j</span> ACCEPT
+/sbin/iptables <span class="nt">-A</span> OUTPUT <span class="nt">-o</span> lo <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Destroy access from private ip addresses</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-s</span> 10.0.0.0/8 <span class="nt">-j</span> DROP
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-s</span> 172.16.0.0/12 <span class="nt">-j</span> DROP
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-s</span> 192.168.0.0/16 <span class="nt">-j</span> DROP
+
+<span class="c"># Allow ping</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> icmp <span class="nt">--icmp-type</span> echo-request <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Allow reply to external that is done from internal</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-m</span> state <span class="nt">--state</span> ESTABLISHED,RELATED <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Destroy access from dropped ip addresses</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-s</span> /etc/iptables/drop_ip <span class="o">]</span><span class="p">;</span> <span class="k">then
+  for </span>ip <span class="k">in</span> <span class="sb">`</span><span class="nb">cat</span> /etc/iptables/drop_ip<span class="sb">`</span>
+  <span class="k">do</span>
+    /sbin/iptables <span class="nt">-I</span> INPUT <span class="nt">-s</span> <span class="nv">$ip</span> <span class="nt">-j</span> DROP
+  <span class="k">done
+fi</span>
+
+<span class="c"># Allow accesses from defined services.</span>
+<span class="c"># HTTP</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">--dport</span> 80 <span class="nt">-j</span> ACCEPT
+<span class="c"># HTTPS</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">--dport</span> 443 <span class="nt">-j</span> ACCEPT
+<span class="c"># ssh</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">--dport</span> 12345 <span class="nt">-j</span> ACCEPT
+
+<span class="c"># Destroy unmatched accesses with logging</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-m</span> limit <span class="nt">--limit</span> 1/s <span class="nt">-j</span> LOG <span class="nt">--log-prefix</span> <span class="s1">'[IPTABLES INPUT] : '</span>
+/sbin/iptables <span class="nt">-A</span> INPUT <span class="nt">-j</span> DROP
+/sbin/iptables <span class="nt">-A</span> FORWARD <span class="nt">-m</span> limit <span class="nt">--limit</span> 1/s <span class="nt">-j</span> LOG <span class="nt">--log-prefix</span> <span class="s1">'[IPTABLES FORWARD] : '</span>
+/sbin/iptables <span class="nt">-A</span> FORWARD <span class="nt">-j</span> DROP
+
+<span class="c"># Save rule</span>
+/sbin/iptables-save <span class="o">&gt;</span> /etc/iptables/rules.v4
+</code></pre></div></div>
+
+<h3 id="確認-1">確認</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh host
+<span class="c">#=&gt; エラーとなる</span>
+
+<span class="nv">$ </span>ssh host <span class="nt">-p</span> 12345
+<span class="c">#=&gt; ログインできる</span>
+</code></pre></div></div>
+
+<h2 id="ホスト名を変更">ホスト名を変更</h2>
+
+<p>以前のホスト名設定のままになっていたので、修正する</p>
+
+<p>```bash % sudo vi /etc/hostname</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ファイル内容を新しいホスト名に変更
+
+```bash
+% sudo vi /etc/hosts
+</code></pre></div></div>
+
+<p>古いホスト名を新しいホスト名に変更</p>
+
+<p>新しいホスト名はピリオドを含むのでプロンプトにフルホスト名を表示するように変更</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">sudo </span>vi .bashrc
+</code></pre></div></div>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+</span><span class="gi">+PS1='${debian_chroot:+($debian_chroot)}\u@\H:\w\$ '
+</span></code></pre></div></div>
+
+<p>とりあえず今日はここまで。</p>
+
+  </div><a class="u-url" href="/2017/06/04/install-ubuntu1604-to-sakura-vps.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">tail -f pinzo.log</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">tail -f pinzo.log</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">pinzolo</span></a></li><li><a href="https://www.twitter.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">pinzolo</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>pinzolo の技術系 blog</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>rails-flog gem をアップデートした | tail -f pinzo.log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="rails-flog gem をアップデートした" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="先日作成した pinzolo/spwd: Secret file based password management tool をアップデートしたついでにふと pinzolo/rails-flog: Rails log formatter for Parameters and SQL を覗いてみた。すると、なんか issue が 3 とかなってる。" />
+<meta property="og:description" content="先日作成した pinzolo/spwd: Secret file based password management tool をアップデートしたついでにふと pinzolo/rails-flog: Rails log formatter for Parameters and SQL を覗いてみた。すると、なんか issue が 3 とかなってる。" />
+<link rel="canonical" href="http://localhost:4000/2017/10/01/update-rails-flog-to-v1_4_0.html" />
+<meta property="og:url" content="http://localhost:4000/2017/10/01/update-rails-flog-to-v1_4_0.html" />
+<meta property="og:site_name" content="tail -f pinzo.log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-10-01T20:22:09+09:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2017/10/01/update-rails-flog-to-v1_4_0.html","headline":"rails-flog gem をアップデートした","dateModified":"2017-10-01T20:22:09+09:00","datePublished":"2017-10-01T20:22:09+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2017/10/01/update-rails-flog-to-v1_4_0.html"},"description":"先日作成した pinzolo/spwd: Secret file based password management tool をアップデートしたついでにふと pinzolo/rails-flog: Rails log formatter for Parameters and SQL を覗いてみた。すると、なんか issue が 3 とかなってる。","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="tail -f pinzo.log" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">tail -f pinzo.log</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">rails-flog gem をアップデートした</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-10-01T20:22:09+09:00" itemprop="datePublished">Oct 1, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>先日作成した <a href="https://github.com/pinzolo/spwd">pinzolo/spwd: Secret file based password management tool</a> をアップデートしたついでにふと <a href="https://github.com/pinzolo/rails-flog">pinzolo/rails-flog: Rails log formatter for Parameters and SQL</a> を覗いてみた。すると、なんか issue が 3 とかなってる。</p>
+
+<p>んで <a href="https://github.com/pinzolo/rails-flog/issues/17">compatibility for Rails5.1 · Issue #17 · pinzolo/rails-flog</a> という issue が登録されている。あれ？？そんなメールは Github から来た覚えないぞ？？どうしてだ？</p>
+
+<p>内容は Rails5.1 で動かないよって話。 <code class="highlighter-rouge">alias_method_chain</code> が削除されるって話は知っていたので <code class="highlighter-rouge">prepend</code> に書き直さなきゃなと思って忘れていた。</p>
+
+<p>というわけで作業ログ</p>
+
+<ol>
+  <li>まずは確実に動くRails.4.2環境に固定してテストが通ることを確認。<a href="https://github.com/pinzolo/rails-flog/commit/47f619788d2af1c28af17bcd1e9f7cd36196bbaa">#17 Fiv version for passing test · pinzolo/rails-flog@47f6197</a></li>
+  <li><code class="highlighter-rouge">alias_method_chain</code> やめて <code class="highlighter-rouge">prepend</code> にする。<a href="https://github.com/pinzolo/rails-flog/commit/c70a5f3d3e76265515f8b0d52b814f2a860ddccd">#17 Use prepend insted of alias_method_chain. alias_method_chain is d… · pinzolo/rails-flog@c70a5f3</a></li>
+  <li>いろいろ警告が出ていたので対応。<a href="https://github.com/pinzolo/rails-flog/commit/85f5e02e700ebc70f35cd970a6d41648d215a247">#17 Remove warning · pinzolo/rails-flog@85f5e02</a></li>
+  <li>テストが通ったので master にマージするためバージョン指定を元に戻す。<a href="https://github.com/pinzolo/rails-flog/commit/bad5a4662ee894654e958b012cb9c26298a69f9a">#17 Restore dependency version · pinzolo/rails-flog@bad5a46</a></li>
+  <li>Rails5.0にバージョン指定。<a href="https://github.com/pinzolo/rails-flog/commit/cff5d617c4d226e9a734c082fc625764f0da6cac">#17 Set rails version to 5.0.x · pinzolo/rails-flog@cff5d61</a></li>
+  <li>Rails 5.0 に対応（1 commit にしてしまったので変更点を列挙）<a href="https://github.com/pinzolo/rails-flog/commit/973f3af19572559329f88a12a92068452746c7bc">#17 Rails 5.0 compatible · pinzolo/rails-flog@973f3af</a></li>
+  <li><code class="highlighter-rouge">render nothing: true</code> は削除されるよって警告が出てきたので <code class="highlighter-rouge">head</code> に変更。</li>
+  <li>テスト時に使用する <code class="highlighter-rouge">get</code> メソッドのパラメータ指定形式が変わるよっていうので対応したら、4.2で通らなくなったので苦肉の策で対応。</li>
+  <li>Rails 5.0 になったらパラメータの順序が入れ替わったので、順序を気にしなくていいようにログの文字列から Hash を作って中身比較。</li>
+  <li>テストが通ったので master にマージするためバージョン指定を元に戻す。<a href="https://github.com/pinzolo/rails-flog/commit/1f87c2b1d17b5b7f90f618930bc1f1dee3f7915c">#17 Restore rails version dependency · pinzolo/rails-flog@1f87c2b</a></li>
+  <li>バージョン変更はコミットする必要ないことに気づく</li>
+  <li>SQLがキャッシュの場合、以前は <code class="highlighter-rouge">event.payload[:name]</code> に <code class="highlighter-rouge">CACHE</code> という文字列が入っていたが、Rails 5.1 では <code class="highlighter-rouge">event.payload[:cached]</code> で判断すればよいみたい<a href="https://github.com/pinzolo/rails-flog/commit/c3123a3db95d4416caff810c4968aa3f77dddefd">#17 cached query is judged by payload[:cached] instead of payload[:na… · pinzolo/rails-flog@c3123a3</a></li>
+  <li>Tavis CI の設定変更。<code class="highlighter-rouge">prepend</code> の使用できない Ruby 1.9.3 はサヨウナラして新しい Ruby と Rails のバージョンに対応する。<a href="https://github.com/pinzolo/rails-flog/commit/5cca3487c0de93f5e37e6bd59e35d8c886b71b20">#17 Add new versions for CI · pinzolo/rails-flog@5cca348</a></li>
+  <li>Ruby2.0以上だけのサポートになったのでマジックコメントはいらない<a href="https://github.com/pinzolo/rails-flog/commit/22543301f8b6824e671bf62b0951845997ad5eea">Remove magic comment. #17 · pinzolo/rails-flog@2254330</a></li>
+  <li>珍しく一発で全パターンのCIが通ったのでバージョンを上げる<a href="https://github.com/pinzolo/rails-flog/commit/a6a2919ea525a5fa23301eac31bee80672ee4843">#17 Up to v1.4.0 · pinzolo/rails-flog@a6a2919</a></li>
+  <li><code class="highlighter-rouge">bundle exec rake release</code></li>
+</ol>
+
+<p>お疲れ様でした。</p>
+
+  </div><a class="u-url" href="/2017/10/01/update-rails-flog-to-v1_4_0.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">tail -f pinzo.log</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">tail -f pinzo.log</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">pinzolo</span></a></li><li><a href="https://www.twitter.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">pinzolo</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>pinzolo の技術系 blog</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

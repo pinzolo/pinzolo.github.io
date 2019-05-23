@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ArelでのOR検索ついでにごにょごにょいじってみた | tail -f pinzo.log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="ArelでのOR検索ついでにごにょごにょいじってみた" />
+<meta name="author" content="pinzolo" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1つのキーワードで複数テーブルの複数カラムをあいまい検索ってよくある話ですね。 Arelを使って OR の LIKE 検索って冗長になりがちだけどそこそこパターン化出来そうだなーとつらつらとコード書いてみた。" />
+<meta property="og:description" content="1つのキーワードで複数テーブルの複数カラムをあいまい検索ってよくある話ですね。 Arelを使って OR の LIKE 検索って冗長になりがちだけどそこそこパターン化出来そうだなーとつらつらとコード書いてみた。" />
+<link rel="canonical" href="http://localhost:4000/2015/12/04/arel-or.html" />
+<meta property="og:url" content="http://localhost:4000/2015/12/04/arel-or.html" />
+<meta property="og:site_name" content="tail -f pinzo.log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-12-04T14:39:00+09:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2015/12/04/arel-or.html","headline":"ArelでのOR検索ついでにごにょごにょいじってみた","dateModified":"2015-12-04T14:39:00+09:00","datePublished":"2015-12-04T14:39:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2015/12/04/arel-or.html"},"author":{"@type":"Person","name":"pinzolo"},"description":"1つのキーワードで複数テーブルの複数カラムをあいまい検索ってよくある話ですね。 Arelを使って OR の LIKE 検索って冗長になりがちだけどそこそこパターン化出来そうだなーとつらつらとコード書いてみた。","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="tail -f pinzo.log" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">tail -f pinzo.log</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">ArelでのOR検索ついでにごにょごにょいじってみた</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2015-12-04T14:39:00+09:00" itemprop="datePublished">Dec 4, 2015
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">pinzolo</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>1つのキーワードで複数テーブルの複数カラムをあいまい検索ってよくある話ですね。<br />
+Arelを使って OR の LIKE 検索って冗長になりがちだけどそこそこパターン化出来そうだなーとつらつらとコード書いてみた。</p>
+
+<p>こんなテーブルがあるとします</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:name</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:email</span>
+<span class="k">end</span>
+
+<span class="n">create_table</span> <span class="ss">:belongings</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:user_id</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:company_name</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:dept_name</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>1つのキーワードであらゆる属性をあいまい検索したい場合、Arelを使えばこう書けます<br />
+left join も Arel で書けますが、冗長なので eager_load で代用してます</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">match_key</span> <span class="o">=</span> <span class="s2">"%</span><span class="si">#{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">%"</span>
+<span class="n">name_matches</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">)</span>
+<span class="n">email_matches</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:email</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">)</span>
+<span class="n">company_name_matches</span> <span class="o">=</span> <span class="no">Belonging</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:company_name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">)</span>
+<span class="n">dept_name_matches</span> <span class="o">=</span> <span class="no">Belonging</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:dept_name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">)</span>
+
+<span class="no">User</span><span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:belonging</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">name_matches</span><span class="p">.</span><span class="nf">or</span><span class="p">(</span><span class="n">email_matches</span><span class="p">).</span><span class="nf">or</span><span class="p">(</span><span class="n">company_name_matches</span><span class="p">).</span><span class="nf">or</span><span class="p">(</span><span class="n">dept_name_matches</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">or</code> のメソッドチェーンがなんかやだね。こうすれば対応カラムが増えた時 <code class="highlighter-rouge">matchers</code> の要素を増やすだけで済むぞ</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">match_key</span> <span class="o">=</span> <span class="s2">"%</span><span class="si">#{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">%"</span>
+<span class="n">matchers</span> <span class="o">=</span> <span class="p">[</span><span class="no">User</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">),</span>
+            <span class="no">User</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:email</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">),</span>
+            <span class="no">Belonging</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:company_name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">),</span>
+            <span class="no">Belonging</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:dept_name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">)]</span>
+<span class="n">condition</span> <span class="o">=</span> <span class="n">matchers</span><span class="p">.</span><span class="nf">inject</span> <span class="p">{</span> <span class="o">|</span><span class="n">cond</span><span class="p">,</span> <span class="n">matcher</span><span class="o">|</span> <span class="n">cond</span><span class="p">.</span><span class="nf">or</span><span class="p">(</span><span class="n">matcher</span><span class="p">)</span> <span class="p">}</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:belonging</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>これならシンプルに <code class="highlighter-rouge">inject(&amp;:sym)</code> でいけるね</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">match_key</span> <span class="o">=</span> <span class="s2">"%</span><span class="si">#{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">%"</span>
+<span class="n">matchers</span> <span class="o">=</span> <span class="p">[</span><span class="no">User</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">),</span>
+            <span class="no">User</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:email</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">),</span>
+            <span class="no">Belonging</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:company_name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">),</span>
+            <span class="no">Belonging</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="ss">:dept_name</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="n">match_key</span><span class="p">)]</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:belonging</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">matchers</span><span class="p">.</span><span class="nf">inject</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:or</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">matchers</code> も定型的なので冗長だよね</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">class_columns_set</span> <span class="o">=</span> <span class="p">{</span> <span class="no">User</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">],</span> <span class="no">Belonging</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:company_name</span><span class="p">,</span> <span class="ss">:dept_name</span><span class="p">]</span> <span class="p">}</span>
+<span class="n">matchers</span> <span class="o">=</span> <span class="n">class_columns_set</span><span class="p">.</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">cls</span><span class="p">,</span> <span class="n">cols</span><span class="o">|</span>
+  <span class="n">cols</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">col</span><span class="o">|</span> <span class="n">cls</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="n">col</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="s2">"%</span><span class="si">#{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span><span class="p">.</span><span class="nf">flatten</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:belonging</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">matchers</span><span class="p">.</span><span class="nf">inject</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:or</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>なんかシンプルなパターンなら切り出せそう</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SimpleFinder</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">base_class</span><span class="p">,</span> <span class="n">class_columns_set</span><span class="p">)</span>
+    <span class="vi">@base_class</span> <span class="o">=</span> <span class="n">base_class</span>
+    <span class="vi">@class_columns_set</span> <span class="o">=</span> <span class="n">class_columns_set</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+    <span class="n">matchers</span> <span class="o">=</span> <span class="vi">@class_columns_set</span><span class="p">.</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">cls</span><span class="p">,</span> <span class="n">cols</span><span class="o">|</span>
+      <span class="n">cols</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">col</span><span class="o">|</span> <span class="n">cls</span><span class="p">.</span><span class="nf">arel_table</span><span class="p">[</span><span class="n">col</span><span class="p">].</span><span class="nf">matches</span><span class="p">(</span><span class="s2">"%</span><span class="si">#{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">end</span><span class="p">.</span><span class="nf">flatten</span>
+    <span class="n">foreign_tables</span> <span class="o">=</span> <span class="vi">@class_columns_set</span><span class="p">.</span><span class="nf">keys</span><span class="p">.</span><span class="nf">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">cls</span><span class="o">|</span> <span class="n">cls</span> <span class="o">==</span> <span class="vi">@base_class</span> <span class="p">}.</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:table_name</span><span class="p">)</span>
+    <span class="vi">@base_class</span><span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="o">*</span><span class="n">foreign_tables</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">matchers</span><span class="p">.</span><span class="nf">inject</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:or</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="no">SimpleFinder</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="no">User</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">],</span> <span class="no">Belonging</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:company_name</span><span class="p">,</span> <span class="ss">:dept_name</span><span class="p">]).</span><span class="nf">find</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>実際は <code class="highlighter-rouge">SimpleFinder</code> までやると適用できるパターンが限定されるので、その手前が落とし所な気もする。
+人によっては <code class="highlighter-rouge">inject(&amp;:sym)</code> 使うぐらいが一番可読性がいいって意見もありそう。</p>
+
+<p>Arelを使って OR や LIKE をするメリットは <code class="highlighter-rouge">scope</code> にして <code class="highlighter-rouge">merge</code> した時に壊れないって記述をよく見ますが、こういう風に動的に対応箇所を増やせるように持っていくのも楽というのもメリットですね。文字列で <code class="highlighter-rouge">where</code> 内を書いていたらなかなかこうはできない。あ、こんな処理を他にもたくさん書かなければいけない場合は <code class="highlighter-rouge">Squeel</code> 入れたほうがいいと思います。</p>
+
+<p>全然関係ないけど、gist って編集時はインスタンス変数に色つけてくれるのに閲覧時には色つけてくれないの何でだろ</p>
+
+<p>[追記] たまたま <a href="https://qiita.com/advent-calendar/2015/rails">Ruby on Rails Advent Calendar 2015</a> が空いてたので飛び入りしました。</p>
+
+  </div><a class="u-url" href="/2015/12/04/arel-or.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">tail -f pinzo.log</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">tail -f pinzo.log</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">pinzolo</span></a></li><li><a href="https://www.twitter.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">pinzolo</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>pinzolo の技術系 blog</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

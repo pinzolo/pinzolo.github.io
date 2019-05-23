@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Swiftで画像が左寄せでタイトルが中央なボタンを作る | tail -f pinzo.log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Swiftで画像が左寄せでタイトルが中央なボタンを作る" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="4月に転職して現在初めて iOS の改修をやっている。" />
+<meta property="og:description" content="4月に転職して現在初めて iOS の改修をやっている。" />
+<link rel="canonical" href="http://localhost:4000/2019/05/23/left-image-and-center-title-button.html" />
+<meta property="og:url" content="http://localhost:4000/2019/05/23/left-image-and-center-title-button.html" />
+<meta property="og:site_name" content="tail -f pinzo.log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-05-23T12:40:28+09:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2019/05/23/left-image-and-center-title-button.html","headline":"Swiftで画像が左寄せでタイトルが中央なボタンを作る","dateModified":"2019-05-23T12:40:28+09:00","datePublished":"2019-05-23T12:40:28+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/05/23/left-image-and-center-title-button.html"},"description":"4月に転職して現在初めて iOS の改修をやっている。","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="tail -f pinzo.log" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">tail -f pinzo.log</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Swiftで画像が左寄せでタイトルが中央なボタンを作る</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-05-23T12:40:28+09:00" itemprop="datePublished">May 23, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>4月に転職して現在初めて iOS の改修をやっている。</p>
+
+<p><img src="/assets/img/20190523_image1.png" alt="" /></p>
+
+<p>こんな感じのデザインを実装することになって非常に困った。</p>
+
+<p>まずデフォルトで画像とタイトルを表示するとこんな風になる。</p>
+
+<p><img src="/assets/img/20190523_image2.png" alt="" />
+これの画像だけを左側に固定しタイトルは長さに合わせてセンタリングしたい。</p>
+
+<p>左揃えを <code class="highlighter-rouge">imageEdgeInsets.left</code> と <code class="highlighter-rouge">titleEdgeInsets.left</code> を操作するして似たような事は先日やったのだが、これだとタイトルのセンタリングが大変。文字の幅の自動計算とかやりたくない。</p>
+
+<p>Swift 初めて2ヶ月の iOS App の API どころか Swift の構文すらまだまだ怪しい状態なので当たりも付けづらく、ぐぐってみてもなかなか有用な情報を見つけられなかった。</p>
+
+<p>とはいえ一晩あけるとなんとなくピンとくる物もあって <code class="highlighter-rouge">imageRectForContentRect(_ contentRect: CGRect) -&gt; CGRect</code> を override すれば出来そうな気がしてきたので試してみた。</p>
+
+<p>まずはデフォルトの状態でどんな <code class="highlighter-rouge">CGRect</code> を返しているのかを調べよう。</p>
+
+<p>なんと現在は <code class="highlighter-rouge">imageRect(forContentRect contentRect: CGRect) -&gt; CGRect</code> に名前が変わっているようだ。<br />
+この2ヶ月近く Swift をやって、こういう非互換に腐るほど出会ってきた。enum の名前が全然違っていて <code class="highlighter-rouge">FooBarNormal</code> を <code class="highlighter-rouge">.normal</code> に直すとかザラだ。<br />
+おかげでググった結果が陳腐化していることも多々である。さっさと落ち着いてくれ。</p>
+
+<p>とまあ Swift の愚痴は置いておいてとりあえずこんなコードを仕込んだ。</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">LeftFixedImageButton</span><span class="p">:</span> <span class="kt">UIButton</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">imageRect</span><span class="p">(</span><span class="n">forContentRect</span> <span class="nv">contentRect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">imageRect</span><span class="p">(</span><span class="nv">forContentRect</span><span class="p">:</span> <span class="n">contentRect</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rect</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(123.5, 18.0, 24.0, 24.0)
+(131.5, 18.0, 24.0, 24.0)
+(151.0, 18.0, 24.0, 24.0)
+(151.0, 18.0, 24.0, 24.0)
+(143.0, 18.0, 24.0, 24.0)
+(143.0, 18.0, 24.0, 24.0)
+(151.0, 18.0, 24.0, 24.0)
+(151.0, 18.0, 24.0, 24.0)
+(143.0, 18.0, 24.0, 24.0)
+(143.0, 18.0, 24.0, 24.0)
+</code></pre></div></div>
+
+<p>よしよし、この <code class="highlighter-rouge">CGRect</code> は <code class="highlighter-rouge">UIButton</code> 内部での相対座標になっているっぽい。なので、x だけ固定化した <code class="highlighter-rouge">CGRect</code> を返してやれば良さそうだ。</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">LeftFixedImageButton</span><span class="p">:</span> <span class="kt">UIButton</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">imageRect</span><span class="p">(</span><span class="n">forContentRect</span> <span class="nv">contentRect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">imageRect</span><span class="p">(</span><span class="nv">forContentRect</span><span class="p">:</span> <span class="n">contentRect</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minY</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>本来なら <code class="highlighter-rouge">@IBDesignable</code> と <code class="highlighter-rouge">@IBInspectable</code> を使って外部から値を設定できるようにするべきなのかもしれないが、設定ミスがあって画面によって画像の位置がずれるとかになっても困るので固定値とした。</p>
+
+<p>これの結果、こんな風に表示された。</p>
+
+<p><img src="/assets/img/20190523_image3.png" alt="" /></p>
+
+<p>なんか微妙にタイトルがずれている気がする。少し考えて、これはもともと画像込みでセンタリングされているから画像の分だけずらす必要があるなと思った。</p>
+
+<p>で当然 <code class="highlighter-rouge">titleRect(forContentRect contentRect: CGRect) -&gt; CGRect</code> もあるわけなのでこんな風にしてみた。</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">LeftFixedImageButton</span><span class="p">:</span> <span class="kt">UIButton</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">titleRect</span><span class="p">(</span><span class="n">forContentRect</span> <span class="nv">contentRect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">titleRect</span><span class="p">(</span><span class="nv">forContentRect</span><span class="p">:</span> <span class="n">contentRect</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minX</span> <span class="o">-</span> <span class="mf">24.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minY</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">imageRect</span><span class="p">(</span><span class="n">forContentRect</span> <span class="nv">contentRect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">imageRect</span><span class="p">(</span><span class="nv">forContentRect</span><span class="p">:</span> <span class="n">contentRect</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minY</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/20190523_image4.png" alt="" /></p>
+
+<p>うーん、ずれすぎている。ああ、センタリングだから画像の半分だけずらさないと行けないのか。</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">LeftFixedImageButton</span><span class="p">:</span> <span class="kt">UIButton</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">titleRect</span><span class="p">(</span><span class="n">forContentRect</span> <span class="nv">contentRect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">titleRect</span><span class="p">(</span><span class="nv">forContentRect</span><span class="p">:</span> <span class="n">contentRect</span><span class="p">)</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">imgView</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">imageView</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minX</span> <span class="o">-</span> <span class="n">imgView</span><span class="o">.</span><span class="n">image</span><span class="o">!.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minY</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">rect</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">imageRect</span><span class="p">(</span><span class="n">forContentRect</span> <span class="nv">contentRect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">imageRect</span><span class="p">(</span><span class="nv">forContentRect</span><span class="p">:</span> <span class="n">contentRect</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">minY</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>画像のあるなし、画像のサイズが違うことも考慮してこうしてみた。これでようやく目的が達成できた。良かった</p>
+
+  </div><a class="u-url" href="/2019/05/23/left-image-and-center-title-button.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">tail -f pinzo.log</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">tail -f pinzo.log</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">pinzolo</span></a></li><li><a href="https://www.twitter.com/pinzolo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">pinzolo</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>pinzolo の技術系 blog</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
