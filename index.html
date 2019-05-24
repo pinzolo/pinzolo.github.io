@@ -13,17 +13,16 @@ layout: default
       href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
       rel="stylesheet"
     />
+    <link
+      href="{{ '/assets/css/style.css' | relative_url }}"
+      rel="stylesheet"
+    />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
     />
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.umd.js"></script>
-    <style>
-      [v-cloak] {
-        display: none;
-      }
-    </style>
   </head>
   <body>
     {% raw %}
@@ -82,6 +81,7 @@ layout: default
             color="primary"
             type="border"
             icon="keyboard_arrow_right"
+            icon-after
             :disabled="!pager.next"
             @click="gotoNext"
           >
@@ -128,13 +128,11 @@ layout: default
         methods: {
           gotoPrev: function() {
             {% if paginator.previous_page %}
-            console.log('gotoPrev');
             window.location.href = "{{ paginator.previous_page_path | relative_url }}";
             {% endif %}
           },
           gotoNext: function() {
             {% if paginator.next_page %}
-            console.log('gotoNext');
             window.location.href = "{{ paginator.next_page_path | relative_url }}";
             {% endif %}
           }
