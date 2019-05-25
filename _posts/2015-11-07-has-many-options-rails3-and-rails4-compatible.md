@@ -3,7 +3,6 @@ layout: post
 title: Rails3とRails4のhas_manyオプションの差分を吸収する
 date: '2015-11-07T12:39:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - rails
 - ruby

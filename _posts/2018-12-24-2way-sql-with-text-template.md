@@ -2,7 +2,6 @@
 layout: post
 title: "text/templateをベースにした 2way SQL ライブラリ"
 date: '2018-12-24T01:07:16+0900'
-main-class: dev
 tags:
   - golang
   - sql

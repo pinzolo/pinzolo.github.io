@@ -2,7 +2,6 @@
 layout: post
 title: golang振り返り
 date: '2017-12-05T21:12:53+0900'
-main-class: dev
 tags:
   - golang
 ---

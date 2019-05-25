@@ -3,7 +3,6 @@ layout: post
 title: JavaでPostgreSQLの?演算子を使用するために
 date: '2016-02-25T11:08:00.001+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - doma
 - java

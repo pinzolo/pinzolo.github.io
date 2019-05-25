@@ -3,7 +3,6 @@ layout: post
 title: RubyとRailsとminitestのマルチバージョンでのCI環境の話
 date: '2015-11-16T14:27:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - ruby
 - rubygems

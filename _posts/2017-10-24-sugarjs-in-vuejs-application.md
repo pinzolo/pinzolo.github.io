@@ -2,7 +2,6 @@
 layout: post
 title: "Sugar.js を Vue.js で使用する"
 date: '2017-10-24T21:28:35+0900'
-main-class: dev
 tags:
   - javascript
   - sugar.js

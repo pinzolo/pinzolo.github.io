@@ -1,7 +1,6 @@
 ---
 layout: post
 title: comment on exported function GetXxx should be of thee form "GetXxx ..."
-main-class: dev
 tags:
 - golang
 ---

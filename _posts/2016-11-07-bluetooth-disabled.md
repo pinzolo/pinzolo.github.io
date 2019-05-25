@@ -2,7 +2,6 @@
 layout: post
 title: Macでbluetoothが使用不可となった場合
 date: '2016-11-07T10:39:15+0900'
-main-class: os
 tags: mac
 ---
 

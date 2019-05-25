@@ -2,7 +2,6 @@
 layout: post
 title: "Function.identity()"
 date: '2017-07-02T14:11:27+0900'
-main-class: dev
 tags:
   - java
 ---

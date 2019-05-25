@@ -2,7 +2,6 @@
 layout: post
 title: VPS の Ruby と Redmine を最新に
 date: '2016-09-20T18:26:07+0900'
-main-class: vps
 tags:
   - redmine
   - ruby

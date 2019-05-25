@@ -2,7 +2,6 @@
 layout: post
 title: "neovimを初めて起動するときはsudoを使用してはならない"
 date: '2017-04-15T23:01:42+0900'
-main-class: os
 tags:
   - mac
   - neovim

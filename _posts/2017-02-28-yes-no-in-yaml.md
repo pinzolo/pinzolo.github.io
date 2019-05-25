@@ -2,7 +2,6 @@
 layout: post
 title: "YAMLでyes,noというキーは使用できない"
 date: '2017-02-28T21:32:05+0900'
-main-class: dev
 tags:
   - rails
   - yaml

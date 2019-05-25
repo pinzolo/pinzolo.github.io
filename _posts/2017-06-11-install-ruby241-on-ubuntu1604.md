@@ -2,7 +2,6 @@
 layout: post
 title: Ubuntu16.04@さくらのVPSに Ruby 2.4.1 をインストール
 date: '2017-06-11T16:43:46+0900'
-main-class: vps
 tags:
   - ruby
   - ubuntu

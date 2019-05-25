@@ -2,7 +2,6 @@
 layout: post
 title: "Ruby1.8.7, Rails3.0 な開発環境を docker で"
 date: '2017-04-29T14:57:16+0900'
-main-class: dev
 tags:
   - docker
   - rails

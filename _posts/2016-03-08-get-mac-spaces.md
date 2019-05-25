@@ -3,7 +3,6 @@ layout: post
 title: 'お使いの起動ディスクは一杯です '
 date: '2016-03-08T16:39:00.001+09:00'
 author: pinzolo
-main-class: os
 tags:
 - mac
 ---

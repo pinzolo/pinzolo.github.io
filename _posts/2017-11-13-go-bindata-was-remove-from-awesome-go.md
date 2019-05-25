@@ -2,7 +2,6 @@
 layout: post
 title: go-bindata が awesome-go から削除された
 date: '2017-11-13T19:17:20+0900'
-main-class: dev
 tags:
   - golang
 ---

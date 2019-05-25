@@ -2,7 +2,6 @@
 layout: post
 title: "VeeValidateを使ってみる"
 date: '2017-10-25T23:48:13+0900'
-main-class: dev
 tags:
   - javascript
   - vue.js

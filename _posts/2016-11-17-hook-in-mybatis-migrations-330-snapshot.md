@@ -2,7 +2,6 @@
 layout: post
 title: "MyBatis Migrations 3.3.0 の hook が便利"
 date: '2016-11-17T17:37:13+0900'
-main-class: dev
 tags: java
 ---
 

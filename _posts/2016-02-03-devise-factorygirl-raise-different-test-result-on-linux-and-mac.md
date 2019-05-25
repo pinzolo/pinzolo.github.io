@@ -3,7 +3,6 @@ layout: post
 title: FactoryGirlを使用したDeviseのテストでLinuxとMacでのテスト結果が異なった話
 date: '2016-02-03T00:18:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - aws
 - devise

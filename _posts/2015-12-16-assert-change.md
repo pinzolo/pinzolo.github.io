@@ -3,7 +3,6 @@ layout: post
 title: assert_change
 date: '2015-12-16T10:42:00.001+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - ruby
 - testing

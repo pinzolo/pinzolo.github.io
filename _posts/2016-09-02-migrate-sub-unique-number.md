@@ -2,7 +2,6 @@
 layout: post
 title: とある列に属する連番列を追加する場合
 date: '2016-09-02T18:22:18+0900'
-main-class: dev
 tags:
   - postgresql
 ---

@@ -2,7 +2,6 @@
 layout: post
 title: "GoでBOM付きのUTF8なCSVを扱うには"
 date: '2017-03-30T00:04:12+0900'
-main-class: dev
 tags:
   - csv
   - golang

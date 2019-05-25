@@ -2,7 +2,6 @@
 layout: post
 title: "rails-flog gem をアップデートした"
 date: '2017-10-01T20:22:09+0900'
-main-class: dev
 tags:
   - ruby
   - rubygems

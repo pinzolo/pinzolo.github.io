@@ -3,7 +3,6 @@ layout: post
 title: オブジェクトが存在するときにだけ処理をする
 date: '2016-01-09T15:29:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - rails
 - ruby

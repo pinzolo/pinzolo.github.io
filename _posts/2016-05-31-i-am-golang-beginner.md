@@ -3,7 +3,6 @@ layout: post
 title: golang 入門した
 date: '2016-05-31T19:08:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - golang
 ---

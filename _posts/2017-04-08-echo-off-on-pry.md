@@ -2,7 +2,6 @@
 layout: post
 title: "pry で返り値が表示されないようにする"
 date: '2017-04-08T01:36:03+0900'
-main-class: dev
 tags:
   - pry
   - ruby

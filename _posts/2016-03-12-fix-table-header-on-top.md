@@ -3,7 +3,6 @@ layout: post
 title: よくあるテーブルのヘッダ固定の1つ
 date: '2016-03-12T16:13:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - angularjs
 ---

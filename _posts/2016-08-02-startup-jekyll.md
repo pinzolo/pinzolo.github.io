@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  Jekyll始めました
-main-class: jekyll
 tags: jekyll
 ---
 

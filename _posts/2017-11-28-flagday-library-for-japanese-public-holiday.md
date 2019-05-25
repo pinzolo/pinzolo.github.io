@@ -2,7 +2,6 @@
 layout: post
 title: flagdayという日本の祝日を Go で扱うライブラリを作った
 date: '2017-11-28T19:59:52+0900'
-main-class: dev
 tags:
   - golang
 ---

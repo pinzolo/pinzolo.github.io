@@ -3,7 +3,6 @@ layout: post
 title: Deviseで複数モデルを利用した場合、ログアウトすると全てのスコープでログアウトされてしまう
 date: '2016-01-30T19:05:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - devise
 - rails

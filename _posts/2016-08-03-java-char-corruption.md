@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "〜が文字化けした"
-main-class: dev
 tags: java
 ---
 

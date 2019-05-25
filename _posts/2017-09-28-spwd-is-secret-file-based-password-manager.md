@@ -2,7 +2,6 @@
 layout: post
 title: "spwdというパスワード管理ツールを作った"
 date: '2017-09-28T21:07:34+0900'
-main-class: dev
 tags:
   - golang
   - password

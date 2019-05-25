@@ -2,7 +2,6 @@
 layout: post
 title: golangのテンプレート内でメソッドを呼び出す
 date: '2016-06-03T11:02:00.002+09:00'
-main-class: dev
 tags:
 - golang
 ---

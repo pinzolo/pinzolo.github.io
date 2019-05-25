@@ -2,7 +2,6 @@
 layout: post
 title: "Goでrand使うときはseedを設定しましょう"
 date: '2017-03-28T21:11:33+0900'
-main-class: dev
 tags:
   - golang
 ---

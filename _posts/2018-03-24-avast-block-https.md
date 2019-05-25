@@ -2,7 +2,6 @@
 layout: post
 title: "Avastによってhttps通信が切断された"
 date: '2018-03-24T00:15:42+0900'
-main-class: dev
 tags:
   - security
   - mac

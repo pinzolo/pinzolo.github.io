@@ -2,7 +2,6 @@
 layout: post
 title: さくらのVPSを Ubuntu 16.04 にリニューアル
 date: '2017-06-04T14:56:55+0900'
-main-class: vps
 tags:
   - ubuntu
   - ssh

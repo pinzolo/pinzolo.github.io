@@ -3,7 +3,6 @@ layout: post
 title: golang にて文字列のn番目の文字を取得する
 date: '2016-05-31T13:17:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - golang
 ---

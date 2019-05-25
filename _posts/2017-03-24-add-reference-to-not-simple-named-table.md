@@ -2,7 +2,6 @@
 layout: post
 title: "Railsにて列名から機械的に決定できないテーブルへの参照を定義する"
 date: '2017-03-24T20:36:40+0900'
-main-class: dev
 tags:
   - rails
   - ruby

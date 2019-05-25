@@ -3,7 +3,6 @@ layout: post
 title: Deviseにてシステムからユーザーのメールアドレスを変更してもメールを送信しない
 date: '2015-12-09T10:31:00.001+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - devise
 - rails

@@ -3,7 +3,6 @@ layout: post
 title: 自作gemのテストを test-unit で行う
 date: '2015-10-30T19:38:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - ruby
 - rubygems

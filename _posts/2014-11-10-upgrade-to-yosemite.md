@@ -3,7 +3,6 @@ layout: post
 title: Yosemite にした
 date: '2014-11-10T12:24:00.000+09:00'
 author: pinzolo
-main-class: os
 tags:
 - mac
 ---

@@ -2,7 +2,6 @@
 layout: post
 title: "inclusionなどのバリデーションで検証対象の範囲を検証時に取得する"
 date: '2017-03-16T00:01:12+0900'
-main-class: dev
 tags:
   - rails
   - ruby

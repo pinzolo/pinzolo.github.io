@@ -2,7 +2,6 @@
 layout: post
 title: "ActiveRecord で join と or と and が入り混じった場合"
 date: '2017-03-17T16:25:48+0900'
-main-class: dev
 tags:
   - rails
   - ruby

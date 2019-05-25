@@ -2,7 +2,6 @@
 layout: post
 title: "YubinBangoをTurbolinks下で使う場合"
 date: '2017-03-15T10:47:29+0900'
-main-class: dev
 tags:
   - javascript
   - rails

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "serialのシーケンスがなが～い名前になる場合"
-main-class: dev
 tags: postgresql
 ---
 

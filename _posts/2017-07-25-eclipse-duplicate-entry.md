@@ -2,7 +2,6 @@
 layout: post
 title: "Eclipse で JavaSE への参照が二つに増えた"
 date: '2017-07-25T18:56:27+0900'
-main-class: dev
 tags:
   - eclipse
   - java

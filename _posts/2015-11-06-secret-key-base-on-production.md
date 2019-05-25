@@ -3,7 +3,6 @@ layout: post
 title: 本番環境での secret_key_base 設定
 date: '2015-11-06T12:56:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - apache2
 - passenger

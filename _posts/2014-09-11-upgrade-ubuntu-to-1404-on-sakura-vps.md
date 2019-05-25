@@ -3,7 +3,6 @@ layout: post
 title: さくらVPSの Ubuntu12.04 を 14.04 にした
 date: '2014-09-11T11:40:00.001+09:00'
 author: pinzolo
-main-class: vps
 tags:
 - redmine
 - ubuntu

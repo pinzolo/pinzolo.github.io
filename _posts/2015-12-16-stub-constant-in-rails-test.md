@@ -3,7 +3,6 @@ layout: post
 title: Railsのテストで定数のスタブが欲しい場合
 date: '2015-12-16T19:07:00.001+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - rails
 - ruby

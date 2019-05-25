@@ -2,7 +2,6 @@
 layout: post
 title: "Goから特定のURLを規定のブラウザで開かせたい"
 date: '2017-07-13T18:08:16+0900'
-main-class: dev
 tags:
   - golang
 ---

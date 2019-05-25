@@ -2,7 +2,6 @@
 layout: post
 title: DBeaver で vrapper を使う
 date: '2017-05-23T02:01:38+0900'
-main-class: dev
 tags: tool
 ---
 

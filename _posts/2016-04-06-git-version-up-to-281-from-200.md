@@ -3,7 +3,6 @@ layout: post
 title: git 2.0.0 → git 2.8.1
 date: '2016-04-06T11:52:00.000+09:00'
 author: pinzolo
-main-class: vps
 tags:
 - ubuntu
 - git

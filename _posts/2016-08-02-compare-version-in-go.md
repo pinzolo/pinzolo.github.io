@@ -2,7 +2,6 @@
 layout: post
 title: Go でバージョン比較
 description:
-main-class: dev
 tags: golang
 ---
 

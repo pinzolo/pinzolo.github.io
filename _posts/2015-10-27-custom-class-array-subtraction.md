@@ -3,7 +3,6 @@ layout: post
 title: 自作クラスの配列同士で引き算を正しく動作させるには
 date: '2015-10-27T11:29:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - ruby
 ---

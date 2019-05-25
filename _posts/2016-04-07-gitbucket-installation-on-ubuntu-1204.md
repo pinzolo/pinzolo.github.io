@@ -3,7 +3,6 @@ layout: post
 title: Ubuntu 12.04 on さくらのVPS に GitBucket を入れたメモ
 date: '2016-04-07T16:03:00.000+09:00'
 author: pinzolo
-main-class: vps
 tags:
 - gitbucket
 - ubuntu

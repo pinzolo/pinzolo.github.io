@@ -2,7 +2,6 @@
 layout: post
 title: Ubuntu16.04@さくらのVPS に PostgreSQL をインストール
 date: '2017-06-11T10:59:14+0900'
-main-class: vps
 tags:
   - postgresql
   - ubuntu

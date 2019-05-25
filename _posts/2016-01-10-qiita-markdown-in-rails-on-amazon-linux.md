@@ -3,7 +3,6 @@ layout: post
 title: EC2(Amazon Linux)上のRailsアプリにQiita::Markdownをインストール
 date: '2016-01-10T17:56:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - aws
 - markdown

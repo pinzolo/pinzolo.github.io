@@ -3,7 +3,6 @@ layout: post
 title: jQuery使ってAJAXでファイルアップロード
 date: '2015-12-14T11:53:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - ajax
 - jQuery

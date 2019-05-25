@@ -2,7 +2,6 @@
 layout: post
 title: "Rails で option タグにカスタムアトリビュートを付けたい"
 date: '2017-03-30T22:49:36+0900'
-main-class: dev
 tags:
   - rails
   - ruby

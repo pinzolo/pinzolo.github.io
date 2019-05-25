@@ -2,7 +2,6 @@
 layout: post
 title: "Swiftで画像が左寄せでタイトルが中央なボタンを作る"
 date: '2019-05-23T12:40:28+0900'
-main-class: dev
 tags:
   - swift
 ---

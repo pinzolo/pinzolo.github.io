@@ -3,7 +3,6 @@ layout: post
 title: Rails の TimeWithZone を JavaScript で読み込めるフォーマットで出力する
 date: '2016-01-18T15:18:00.000+09:00'
 author: pinzolo
-main-class: dev
 tags:
 - javascript
 - rails

@@ -2,7 +2,6 @@
 layout: post
 title: Docker の CentOS7 で PostgreSQL 9.5 を利用する
 date: '2016-10-18T21:39:57+0900'
-main-class: dev
 tags:
   - centos
   - docker
