@@ -2,63 +2,12 @@
 layout: default
 ---
 
-<div id="app">
-  <div class="container" v-cloak>
-    {% include nav.html %}
-    <main class="main-content container">
-      {% include posts.html %}
-    </main>
-    {% include pager.html %}
-  </div>
+<div class="container">
+  {% include nav.html %}
+  <main class="main-content container">
+    {% include posts.html posts=paginator.posts %}
+  </main>
+  {% include pager.html prev=paginator.previous_page_path
+  next=paginator.next_page_path %}
 </div>
 {% include scripts.html %}
-<script>
-  new Vue({
-    el: '#app',
-    computed: {
-      postGroups: function() {
-        var list = [];
-        var group = { id: 1, posts: [] };
-        list.push(group);
-
-        var tagsList = this.posts.tagsList;
-        var urlList = this.posts.urlList;
-        this.posts.titleList.forEach(function(title, index) {
-          if (group.posts.length === 3) {
-            group = { id: group.id + 1, posts: [] };
-            list.push(group);
-          }
-          group.posts.push({
-            title: title,
-            tags: tagsList[index],
-            url: urlList[index]
-          });
-        });
-        return list;
-      }
-    },
-    data: function() {
-      return {
-        menuActive: false,
-        site: {
-          url: '{{ site.url }}',
-          title: '{{ site.title }}'
-        },
-        posts: {
-          titleList: {{ paginator.posts | map: "title" | jsonify }},
-          tagsList: {{ paginator.posts | map: "tags" | jsonify}},
-          urlList: {{ paginator.posts | map: "url" | jsonify}}
-        },
-        pager: {
-          prev: '{{ paginator.previous_page_path | default: "" }}',
-          next: '{{ paginator.next_page_path | default: "" }}'
-        }
-      };
-    },
-    methods: {
-      switchMenu: function() {
-        this.menuActive = !this.menuActive;
-      }
-    }
-  });
-</script>

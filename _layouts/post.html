@@ -2,42 +2,16 @@
 layout: default
 ---
 
-<div id="app">
-  <div class="container" v-cloak>
-    {% include nav.html %}
-    <main class="main-content container">
-      <article class="post-entry">
-        <h1 class="title is-1 post-title">{{ page.title }}</h1>
-        <div class="post-content">
-          {{ content }}
-        </div>
-      </article>
-      {% include pager.html %}
-    </main>
-  </div>
+<div class="container">
+  {% include nav.html %}
+  <main class="main-content container">
+    <article class="post-entry">
+      <h1 class="title is-1 post-title">{{ page.title }}</h1>
+      <div class="post-content">
+        {{ content }}
+      </div>
+    </article>
+    {% include pager.html prev=page.previous.url next=page.next.url %}
+  </main>
 </div>
 {% include scripts.html %}
-<script>
-  new Vue({
-    el: '#app',
-    computed: {},
-    data: function() {
-      return {
-        menuActive: false,
-        site: {
-          url: '{{ site.url }}',
-          title: '{{ site.title }}'
-        },
-        pager: {
-          prev: '{{ page.previous.url | default: "" }}',
-          next: '{{ page.next.url | default: "" }}'
-        }
-      };
-    },
-    methods: {
-      switchMenu: function() {
-        this.menuActive = !this.menuActive;
-      }
-    }
-  });
-</script>

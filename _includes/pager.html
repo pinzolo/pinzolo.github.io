@@ -1,26 +1,35 @@
 <div class="columns">
   <div class="column">
     <div class="is-pulled-right">
-      <a
-        class="button is-info is-outlined"
-        :disabled="!pager.prev"
-        :href="pager.prev"
-      >
+      {% if include.prev %}
+      <a class="button is-info is-outlined" href="{{ include.prev }}">
         <span class="icon">
           <i class="fas fa-chevron-left"></i>
         </span>
         Prev
       </a>
-      <a
-        class="button is-info is-outlined"
-        :disabled="!pager.next"
-        :href="pager.next"
-      >
+      {% endif %} {% unless include.prev %}
+      <a class="button is-info is-outlined" disabled>
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        Prev
+      </a>
+      {% endunless %} {% if include.next %}
+      <a class="button is-info is-outlined" href="{{ include.next }}">
         Next
         <span class="icon">
           <i class="fas fa-chevron-right"></i>
         </span>
       </a>
+      {% endif %} {% unless include.next %}
+      <a class="button is-info is-outlined" disabled>
+        Next
+        <span class="icon">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </a>
+      {% endunless %}
     </div>
   </div>
 </div>
