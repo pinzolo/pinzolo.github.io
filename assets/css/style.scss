@@ -1,0 +1,26 @@
+---
+---
+
+.main-content {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.post-entry {
+  p {
+    padding-bottom: 1em;
+  }
+  img {
+    vertical-align: middle;
+  }
+  div.highlighter-rouge {
+    padding-bottom: 1em;
+    pre.highlight {
+      padding: 1em;
+    }
+  }
+}
+
+.pager {
+  text-align: right;
+}

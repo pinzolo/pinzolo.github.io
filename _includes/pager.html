@@ -1,0 +1,41 @@
+<div class="container pager">
+  <div class="columns">
+    <div class="column">
+      {% if include.prev %}
+      <a class="button is-info is-outlined" href="{{ include.prev }}">
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        Prev
+      </a>
+      {% endif %} {% unless include.prev %}
+      <a class="button is-info is-outlined" disabled>
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        Prev
+      </a>
+      <button id="to-top" class="button is-primary is-outlined">
+        <span class="icon">
+          <i class="fas fa-chevron-up"></i>
+        </span>
+        To top
+      </button>
+      {% endunless %} {% if include.next %}
+      <a class="button is-info is-outlined" href="{{ include.next }}">
+        Next
+        <span class="icon">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </a>
+      {% endif %} {% unless include.next %}
+      <a class="button is-info is-outlined" disabled>
+        Next
+        <span class="icon">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </a>
+      {% endunless %}
+    </div>
+  </div>
+</div>

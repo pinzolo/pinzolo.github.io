@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<main class="main-content container">
+  <article class="post-entry">
+    <h1 class="title is-1 post-title">{{ page.title }}</h1>
+    <p class="post-time is-pulled-right">
+      at {{ page.date | date: '%Y-%m-%d %H:%M' }}
+    </p>
+    {% include tags.html tags=page.tags %}
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </article>
+  {% include pager.html prev=page.previous.url next=page.next.url %}
+</main>

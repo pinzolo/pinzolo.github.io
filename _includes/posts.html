@@ -1,0 +1,19 @@
+{% assign i = 0 %}
+<div class="columns">
+  {% for post in include.posts %} {% assign i = i | plus: 1 %}
+  <div class="column is-4-desktop is-12-mobile">
+    <div class="box">
+      <p class="post-time">
+        {{ post.date | date: '%Y-%m-%d' }}
+      </p>
+      <p class="title is-4">
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </p>
+      {% include tags.html tags=post.tags %}
+    </div>
+  </div>
+  {% assign m = i | modulo: 3 %} {% if m == 0 %}
+</div>
+<div class="columns">
+  {% endif %} {% endfor %}
+</div>
