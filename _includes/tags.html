@@ -1,0 +1,7 @@
+<div class="tags">
+  {% assign sorted = include.tags | sort %} {% for tag in sorted %}
+  <span class="tag is-rounded is-info">
+    {{ tag }}
+  </span>
+  {% endfor %}
+</div>
