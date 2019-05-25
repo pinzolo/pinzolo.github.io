@@ -2,122 +2,72 @@
 layout: default
 ---
 
-<!DOCTYPE html>
-<html>
-  <head>
-    {% include head.html %}
-  </head>
-  <body>
-    {% raw %}
-    <div id="app">
-      <nav
-        id="nav"
-        class="navbar has-shadow"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div class="container">
-          <div class="navbar-brand">
-            <a :href="site.url" class="navbar-item">{{ site.title }}</a>
-            <a
-              role="button"
-              class="navbar-burger burger"
-              :class="{ 'is-active': menuActive }"
-              aria-label="menu"
-              aria-expanded="false"
-              data-target="navbar-links"
-              @click="switchMenu"
-            >
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-          <div
-            id="navbar-links"
-            class="navbar-menu"
-            :class="{ 'is-active': menuActive }"
-          >
-            <div class="navbar-end">
-              <a href="/about" class="navbar-item">About</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <main id="contents" class="container">
-        <div
-          class="columns is-desktop"
-          v-for="group in postGroups"
-          :key="group.id"
-        >
-          <div class="column" v-for="post in group.posts" :key="post.id">
-            <div class="box">
-              <p class="title is-4">
-                <a :href="post.url">{{ post.title }}</a>
-              </p>
-              <div class="tags">
-                <span
-                  class="tag is-rounded is-info"
-                  v-for="tag in post.tags"
-                  :key="tag"
-                >
-                  {{ tag }}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-    {% endraw %} {% include scripts.html %}
-    <script>
-      new Vue({
-        el: '#app',
-        computed: {
-          postGroups: function() {
-            var list = [];
-            var group = { id: 1, posts: [] };
+<div id="app">
+  <div class="container" v-cloak>
+    {% include nav.html %}
+    <main class="main-content container">
+      {% include posts.html %}
+    </main>
+  </div>
+</div>
+{% include scripts.html %}
+<script>
+  new Vue({
+    el: '#app',
+    computed: {
+      postGroups: function() {
+        var list = [];
+        var group = { id: 1, posts: [] };
+        list.push(group);
+
+        var tagsList = this.posts.tagsList;
+        var urlList = this.posts.urlList;
+        this.posts.titleList.forEach(function(title, index) {
+          if (group.posts.length === 3) {
+            group = { id: group.id + 1, posts: [] };
             list.push(group);
-            this.posts.forEach(function(post) {
-              if (group.posts.length === 3) {
-                group = { id: group.id + 1, posts: [] };
-                list.push(group);
-              }
-              group.posts.push(post);
-            });
-            return list;
           }
+          group.posts.push({
+            title: title,
+            tags: tagsList[index],
+            url: urlList[index]
+          });
+        });
+        return list;
+      }
+    },
+    data: function() {
+      return {
+        menuActive: false,
+        site: {
+          url: '{{ site.url }}',
+          title: '{{ site.title }}'
         },
-        data: function() {
-          return {
-            menuActive: false,
-            site: {
-              url: '{{ site.url }}',
-              title: '{{ site.title }}'
-            },
-            posts: {{ paginator.posts | jsonify }},
-            pager: {
-              prev: {{ paginator.previous_page | default: "null" }},
-              next: {{ paginator.next_page | default: "null" }}
-            }
-          };
+        posts: {
+          titleList: {{ paginator.posts | map: "title" | jsonify }},
+          tagsList: {{ paginator.posts | map: "tags" | jsonify}},
+          urlList: {{ paginator.posts | map: "url" | jsonify}}
         },
-        methods: {
-          switchMenu: function() {
-            this.menuActive = !this.menuActive;
-          },
-          gotoPrev: function() {
-            {% if paginator.previous_page %}
-            window.location.href = "{{ paginator.previous_page_path | relative_url }}";
-            {% endif %}
-          },
-          gotoNext: function() {
-            {% if paginator.next_page %}
-            window.location.href = "{{ paginator.next_page_path | relative_url }}";
-            {% endif %}
-          }
+        pager: {
+          prev: {{ paginator.previous_page | default: "null" }},
+          next: {{ paginator.next_page | default: "null" }}
         }
-      });
-    </script>
-  </body>
-</html>
+      };
+    },
+    methods: {
+      switchMenu: function() {
+        this.menuActive = !this.menuActive;
+      },
+      gotoPrev: function() {
+        {% if paginator.previous_page %}
+        window.location.href = "{{ paginator.previous_page_path | relative_url }}";
+        {% endif %}
+      },
+      gotoNext: function() {
+        {% if paginator.next_page %}
+        window.location.href = "{{ paginator.next_page_path | relative_url }}";
+        {% endif %}
+      }
+    }
+  });
+</script>

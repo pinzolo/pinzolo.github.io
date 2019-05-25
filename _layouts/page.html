@@ -2,4 +2,34 @@
 layout: default
 ---
 
-{{ content }}
+<div id="app">
+  <div class="container" v-cloak>
+    {% include nav.html %}
+    <main class="main-content container">
+      <article class="page">
+        {{ content }}
+      </article>
+    </main>
+  </div>
+</div>
+{% include scripts.html %}
+<script>
+  new Vue({
+    el: '#app',
+    computed: {},
+    data: function() {
+      return {
+        menuActive: false,
+        site: {
+          url: '{{ site.url }}',
+          title: '{{ site.title }}'
+        }
+      };
+    },
+    methods: {
+      switchMenu: function() {
+        this.menuActive = !this.menuActive;
+      }
+    }
+  });
+</script>

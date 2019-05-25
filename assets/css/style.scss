@@ -5,6 +5,20 @@
   display: none;
 }
 
-#contents {
+.main-content {
   padding-top: 2rem;
+}
+.post-entry {
+  p {
+    padding-bottom: 1em;
+  }
+  img {
+    vertical-align: middle;
+  }
+  div.highlighter-rouge {
+    padding-bottom: 1em;
+    pre.highlight {
+      padding: 1em;
+    }
+  }
 }
