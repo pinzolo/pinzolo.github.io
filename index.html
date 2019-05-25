@@ -5,93 +5,71 @@ layout: default
 <!DOCTYPE html>
 <html>
   <head>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ '/assets/css/style.css' | relative_url }}"
-      rel="stylesheet"
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
-    />
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.umd.js"></script>
+    {% include head.html %}
   </head>
   <body>
     {% raw %}
     <div id="app">
-      <div id="content" v-cloak>
-        <div id="navbar">
-          <vs-navbar>
-            <div slot="title">
-              <vs-navbar-title>
-                {{ title }}
-              </vs-navbar-title>
-            </div>
-          </vs-navbar>
-        </div>
-        <div>
-          <vs-row
-            vs-justify="center"
-            v-for="group in postGroups"
-            :key="group.id"
-          >
-            <vs-col
-              type="flex"
-              vs-justify="center"
-              vs-align="center"
-              vs-lg="4"
-              vs-sm="4"
-              vs-xs="12"
-              v-for="post in group.posts"
-              :key="post.id"
+      <nav
+        id="nav"
+        class="navbar has-shadow"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="container">
+          <div class="navbar-brand">
+            <a :href="site.url" class="navbar-item">{{ site.title }}</a>
+            <a
+              role="button"
+              class="navbar-burger burger"
+              :class="{ 'is-active': menuActive }"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbar-links"
+              @click="switchMenu"
             >
-              <vs-card>
-                <div slot="header">
-                  <h3>{{ post.title }}</h3>
-                </div>
-                <div>
-                  <vs-chip v-for="tag in post.tags" :key="tag">
-                    <vs-avatar icon="label"></vs-avatar>
-                    {{ tag }}
-                  </vs-chip>
-                </div>
-              </vs-card>
-            </vs-col>
-          </vs-row>
-        </div>
-        <div>
-          <vs-button
-            color="primary"
-            type="border"
-            icon="keyboard_arrow_left"
-            :disabled="!pager.prev"
-            @click="gotoPrev"
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div
+            id="navbar-links"
+            class="navbar-menu"
+            :class="{ 'is-active': menuActive }"
           >
-            Prev
-          </vs-button>
-          <vs-button
-            color="primary"
-            type="border"
-            icon="keyboard_arrow_right"
-            icon-after
-            :disabled="!pager.next"
-            @click="gotoNext"
-          >
-            Next
-          </vs-button>
+            <div class="navbar-end">
+              <a href="/about" class="navbar-item">About</a>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
+      <main id="contents" class="container">
+        <div
+          class="columns is-desktop"
+          v-for="group in postGroups"
+          :key="group.id"
+        >
+          <div class="column" v-for="post in group.posts" :key="post.id">
+            <div class="box">
+              <p class="title is-4">
+                <a :href="post.url">{{ post.title }}</a>
+              </p>
+              <div class="tags">
+                <span
+                  class="tag is-rounded is-info"
+                  v-for="tag in post.tags"
+                  :key="tag"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-    {% endraw %}
-
+    {% endraw %} {% include scripts.html %}
     <script>
       new Vue({
         el: '#app',
@@ -112,20 +90,22 @@ layout: default
         },
         data: function() {
           return {
-            title: '{{ site.title }}',
+            menuActive: false,
+            site: {
+              url: '{{ site.url }}',
+              title: '{{ site.title }}'
+            },
             posts: {{ paginator.posts | jsonify }},
             pager: {
-              {% if paginator.previous_page %}
-              prev: {{ paginator.previous_page }},
-              {% endif %}
-              {% if paginator.next_page %}
-              next: {{ paginator.next_page }},
-              {% endif %}
-              current: {{ paginator.page }}
+              prev: {{ paginator.previous_page | default: "null" }},
+              next: {{ paginator.next_page | default: "null" }}
             }
           };
         },
         methods: {
+          switchMenu: function() {
+            this.menuActive = !this.menuActive;
+          },
           gotoPrev: function() {
             {% if paginator.previous_page %}
             window.location.href = "{{ paginator.previous_page_path | relative_url }}";

@@ -19,9 +19,22 @@ description: >- # this means to ignore newlines until "baseurl:"
   pinzolo の技術系 blog
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pinzolo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: pinzolo
-github_username:  pinzolo
+github:
+  username:  pinzolo
 
+# SEO
+author: pinzolo
+lang: ja_JP
+twitter:
+  username: pinzolo
+  card: summary
+social:
+  name: pinzolo
+  links:
+    - https://twitter.com/pinzolo
+    - https://github.com/pinzolo
+
+# Pagination
 paginate: 15
 
 # Build settings
