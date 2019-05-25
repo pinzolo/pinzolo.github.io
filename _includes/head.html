@@ -8,6 +8,9 @@
   href="{{ '/assets/css/highlight.css' | relative_url }}"
   rel="stylesheet"
 />
+{% if page and page.path == "tags.html" %}
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+{% endif %}
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
