@@ -8,6 +8,10 @@ layout: default
     {% include head.html %}
   </head>
   <body>
-    {{ content }}
+    <div class="container">
+      {% include nav.html %}
+      {{ content }}
+    </div>
+    {% include scripts.html %}
   </body>
 </html>

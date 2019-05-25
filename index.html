@@ -2,12 +2,8 @@
 layout: default
 ---
 
-<div class="container">
-  {% include nav.html %}
-  <main class="main-content container">
-    {% include posts.html posts=paginator.posts %}
-  </main>
-  {% include pager.html prev=paginator.previous_page_path
-  next=paginator.next_page_path %}
-</div>
-{% include scripts.html %}
+<main class="main-content container">
+  {% include posts.html posts=paginator.posts %}
+</main>
+{% include pager.html prev=paginator.previous_page_path
+next=paginator.next_page_path %}

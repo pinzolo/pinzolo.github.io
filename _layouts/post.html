@@ -2,17 +2,13 @@
 layout: default
 ---
 
-<div class="container">
-  {% include nav.html %}
-  <main class="main-content container">
-    <article class="post-entry">
-      <h1 class="title is-1 post-title">{{ page.title }}</h1>
-      {% include tags.html tags=page.tags %}
-      <div class="post-content">
-        {{ content }}
-      </div>
-    </article>
-    {% include pager.html prev=page.previous.url next=page.next.url %}
-  </main>
-</div>
-{% include scripts.html %}
+<main class="main-content container">
+  <article class="post-entry">
+    <h1 class="title is-1 post-title">{{ page.title }}</h1>
+    {% include tags.html tags=page.tags %}
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </article>
+  {% include pager.html prev=page.previous.url next=page.next.url %}
+</main>
