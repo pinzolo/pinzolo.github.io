@@ -1,13 +1,10 @@
 ---
 ---
 
-[v-cloak] {
-  display: none;
-}
-
 .main-content {
   padding-top: 2rem;
 }
+
 .post-entry {
   p {
     padding-bottom: 1em;
@@ -21,4 +18,8 @@
       padding: 1em;
     }
   }
+}
+
+.pager {
+  padding-bottom: 1rem;
 }
