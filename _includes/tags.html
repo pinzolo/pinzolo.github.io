@@ -1,7 +1,12 @@
 <div class="tags">
   {% assign sorted = include.tags | sort %} {% for tag in sorted %}
   <span class="tag is-rounded is-info">
-    {{ tag }}
+    <a
+      href="{{ '/tags' | relative_url | append: '?tag=' | append: tag }}"
+      class="has-text-white"
+    >
+      {{ tag }}
+    </a>
   </span>
   {% endfor %}
 </div>
