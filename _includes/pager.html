@@ -1,0 +1,26 @@
+<div class="columns">
+  <div class="column">
+    <div class="is-pulled-right">
+      <a
+        class="button is-info is-outlined"
+        :disabled="!pager.prev"
+        :href="pager.prev"
+      >
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        Prev
+      </a>
+      <a
+        class="button is-info is-outlined"
+        :disabled="!pager.next"
+        :href="pager.next"
+      >
+        Next
+        <span class="icon">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
