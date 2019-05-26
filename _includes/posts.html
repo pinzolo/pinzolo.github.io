@@ -1,7 +1,7 @@
 {% assign i = 0 %}
 <div class="columns">
   {% for post in include.posts %} {% assign i = i | plus: 1 %}
-  <div class="column is-4-desktop is-12-mobile">
+  <div class="column is-4-tablet is-12-mobile">
     <div class="box">
       <p class="post-time">
         {{ post.date | date: '%Y-%m-%d' }}
