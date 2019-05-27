@@ -14,7 +14,7 @@
   }
 }
 
-.post-entry {
+.post-content {
   p {
     padding-bottom: 1rem;
   }
@@ -26,6 +26,55 @@
     pre.highlight {
       padding: 1rem;
     }
+  }
+
+  $TITLE_COLOR: #363636;
+  $TITLE_LINE_HEIGHT: 1.125;
+  $TITLE_BORDER_COLOR: hsl(0, 0%, 71%);
+  %post_content_title {
+    color: $TITLE_COLOR;
+    line-height: $TITLE_LINE_HEIGHT;
+    margin-bottom: 0.5rem;
+    border-bottom-color: $TITLE_BORDER_COLOR;
+  }
+
+  h1 {
+    @extend %post_content_title;
+    font-size: 3rem;
+    font-weight: 600;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+  }
+  h2 {
+    @extend %post_content_title;
+    font-size: 2.5rem;
+    font-weight: 500;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+  h3 {
+    @extend %post_content_title;
+    font-size: 2rem;
+    font-weight: 400;
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+  }
+  h4 {
+    @extend %post_content_title;
+    font-size: 1.5rem;
+    font-weight: 300;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+  }
+  h5 {
+    @extend %post_content_title;
+    font-size: 1.25rem;
+    font-weight: 200;
+  }
+  h6 {
+    @extend %post_content_title;
+    font-size: 1rem;
+    font-weight: 100;
   }
 }
 
