@@ -19,7 +19,7 @@ tags:
 
 こっちがリポジトリ → [pinzolo/pinzolo\.github\.io](https://github.com/pinzolo/pinzolo.github.io)
 
-[タグページ](https://pinzolo.github.io/tags) は Vue を使って実装。個別タグページ作るのか結構だるいみたいなので。
+[タグページ](https://pinzolo.github.io/tags) は Vue を使って実装。個別タグページ作るのが結構だるいみたいなので。
 
 一画面のカードの高さは揃えたいなとか細かいのはあるけど、概ねこれで満足してる。シンプルがいい。
 
