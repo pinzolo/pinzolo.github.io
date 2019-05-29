@@ -63,50 +63,62 @@ title: タグ一覧
       };
     },
     mounted: function() {
-      var query = window.location.search;
-      if (query) {
-        var tag = query
-          .slice(1)
-          .split('&')
-          .map(function(e) {
-            return e.split('=');
-          })
-          .find(function(e) {
-            return e[0] === 'tag';
-          });
-        if (tag) {
-          this.searchText = tag[1];
-        }
-      }
-      var self = this;
-      self.tagsLoading = true;
-      axios
-        .get("{{ '/tags.json' | relative_url }}")
-        .then(function(res) {
-          self.tags = res.data;
-          self.setTagSet();
-          self.filterPosts();
-        })
-        .finally(function() {
-          self.tagsLoading = false;
-        });
-      self.postsLoading = true;
-      axios
-        .get("{{ '/index.json' | relative_url }}")
-        .then(function(res) {
-          self.posts = res.data;
-          self.setTagSet();
-          self.filterPosts();
-        })
-        .finally(function() {
-          self.postsLoading = false;
-        });
+      this.setSearchText();
+      this.loadTags();
+      this.loadPosts();
     },
     methods: {
-      setTagSet: function() {
+      setSearchText: function() {
+        var query = window.location.search;
+        if (query) {
+          var tag = query
+            .slice(1)
+            .split('&')
+            .map(function(e) {
+              return e.split('=');
+            })
+            .find(function(e) {
+              return e[0] === 'tag';
+            });
+          if (tag) {
+            this.searchText = tag[1];
+          }
+        }
+      },
+      loadTags: function() {
+        var self = this;
+        self.tagsLoading = true;
+        axios
+          .get("{{ '/tags.json' | relative_url }}")
+          .then(function(res) {
+            self.tags = res.data;
+            self.setup();
+          })
+          .finally(function() {
+            self.tagsLoading = false;
+          });
+      },
+      loadPosts: function() {
+        var self = this;
+        self.postsLoading = true;
+        axios
+          .get("{{ '/index.json' | relative_url }}")
+          .then(function(res) {
+            self.posts = res.data;
+            self.setup();
+          })
+          .finally(function() {
+            self.postsLoading = false;
+          });
+      },
+      setup: function() {
         if (this.posts.length === 0 || this.tags.length === 0) {
           return;
         }
+        this.setTagSet();
+        this.filterPosts();
+      },
+      setTagSet: function() {
         var ps = this.posts;
         this.tagSet = this.tags.map(function(tag) {
           return {
@@ -118,9 +130,6 @@ title: タグ一覧
         });
       },
       filterPosts: function() {
-        if (this.posts.length === 0 || this.tags.length === 0) {
-          return;
-        }
         var txt = this.searchText;
         if (!txt) {
           this.filtered = [].concat(this.tagSet);
