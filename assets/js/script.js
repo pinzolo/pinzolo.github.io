@@ -11,11 +11,13 @@ navbarBurger.addEventListener(
 );
 
 var toTopButton = document.getElementById('to-top');
-toTopButton.addEventListener(
-  'click',
-  function(e) {
-    e.preventDefault();
-    Jump('#top', { duration: 500 });
-  },
-  false
-);
+if (toTopButton) {
+  toTopButton.addEventListener(
+    'click',
+    function(e) {
+      e.preventDefault();
+      Jump('#top', { duration: 500 });
+    },
+    false
+  );
+}
