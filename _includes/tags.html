@@ -1,5 +1,7 @@
+<!-- prettier-ignore -->
 <div class="tags">
-  {% assign sorted = include.tags | sort %} {% for tag in sorted %}
+  {% assign sorted = include.tags | sort %}
+  {% for tag in sorted %}
   <span class="tag is-rounded is-info">
     <a
       href="{{ '/tags' | relative_url | append: '?tag=' | append: tag }}"

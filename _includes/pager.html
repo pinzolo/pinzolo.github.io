@@ -1,5 +1,6 @@
 <div class="container pager">
   <div class="columns">
+    <!-- prettier-ignore -->
     <div class="column">
       {% if include.prev %}
       <a class="button is-info is-outlined" href="{{ include.prev }}">
@@ -8,7 +9,8 @@
         </span>
         Prev
       </a>
-      {% endif %} {% unless include.prev %}
+      {% endif %}
+      {% unless include.prev %}
       <a class="button is-info is-outlined" disabled>
         <span class="icon">
           <i class="fas fa-chevron-left"></i>
@@ -29,7 +31,8 @@
           <i class="fas fa-chevron-right"></i>
         </span>
       </a>
-      {% endif %} {% unless include.next %}
+      {% endif %}
+      {% unless include.next %}
       <a class="button is-info is-outlined" disabled>
         Next
         <span class="icon">

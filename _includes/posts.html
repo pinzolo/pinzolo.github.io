@@ -1,6 +1,8 @@
 {% assign i = 0 %}
+<!-- prettier-ignore -->
 <div class="columns">
-  {% for post in include.posts %} {% assign i = i | plus: 1 %}
+{% for post in include.posts %}
+  {% assign i = i | plus: 1 %}
   <div class="column is-4-tablet is-12-mobile">
     <div class="box">
       <p class="post-time">
@@ -12,8 +14,11 @@
       {% include tags.html tags=post.tags %}
     </div>
   </div>
-  {% assign m = i | modulo: 3 %} {% if m == 0 %}
+  {% assign m = i | modulo: 3 %}
+  {% if m == 0 %}
 </div>
+<!-- prettier-ignore -->
 <div class="columns">
-  {% endif %} {% endfor %}
+  {% endif %}
+{% endfor %}
 </div>
