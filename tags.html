@@ -13,6 +13,7 @@ title: タグ一覧
           type="text"
           placeholder="Search"
           v-model="searchText"
+          @input="search"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-search"></i>
@@ -48,26 +49,6 @@ title: タグ一覧
     computed: {
       loading: function() {
         return this.postsLoading || this.tagsLoading;
-      },
-      tagSet: function() {
-        var ps = this.posts;
-        return this.tags.map(function(tag) {
-          return {
-            tag: tag,
-            posts: ps.filter(function(post) {
-              return post.tags.includes(tag);
-            })
-          };
-        });
-      },
-      filtered: function() {
-        var txt = this.searchText;
-        return this.tagSet.filter(function(tag, i) {
-          if (!txt) {
-            return true;
-          }
-          return tag.tag.includes(txt);
-        });
       }
     },
     data: function() {
@@ -76,7 +57,9 @@ title: タグ一覧
         postsLoading: false,
         searchText: '',
         tags: [],
-        posts: []
+        posts: [],
+        tagSet: [],
+        filtered: []
       };
     },
     mounted: function() {
@@ -95,28 +78,76 @@ title: タグ一覧
           this.searchText = tag[1];
         }
       }
-      (function(self) {
-        self.tagsLoading = true;
-        axios
-          .get("{{ '/tags.json' | relative_url }}")
-          .then(function(res) {
-            self.tags = res.data;
-          })
-          .finally(function() {
-            self.tagsLoading = false;
+      var self = this;
+      self.tagsLoading = true;
+      axios
+        .get("{{ '/tags.json' | relative_url }}")
+        .then(function(res) {
+          self.tags = res.data;
+          self.setTagSet();
+          self.filterPosts();
+        })
+        .finally(function() {
+          self.tagsLoading = false;
+        });
+      self.postsLoading = true;
+      axios
+        .get("{{ '/index.json' | relative_url }}")
+        .then(function(res) {
+          self.posts = res.data;
+          self.setTagSet();
+          self.filterPosts();
+        })
+        .finally(function() {
+          self.postsLoading = false;
+        });
+    },
+    methods: {
+      setTagSet: function() {
+        if (this.posts.length === 0 || this.tags.length === 0) {
+          return;
+        }
+        var ps = this.posts;
+        this.tagSet = this.tags.map(function(tag) {
+          return {
+            tag: tag,
+            posts: ps.filter(function(post) {
+              return post.tags.includes(tag);
+            })
+          };
+        });
+      },
+      filterPosts: function() {
+        if (this.posts.length === 0 || this.tags.length === 0) {
+          return;
+        }
+        var txt = this.searchText;
+        if (!txt) {
+          this.filtered = [].concat(this.tagSet);
+          return;
+        }
+        this.filtered.splice(0);
+        var self = this;
+        this.tagSet.forEach(function(tag) {
+          if (tag.tag.includes(txt)) {
+            self.filtered.push(tag);
+            return;
+          }
+          var ps = tag.posts.filter(function(post) {
+            return post.title.includes(txt);
           });
-      })(this);
-      (function(self) {
-        self.postsLoading = true;
-        axios
-          .get("{{ '/index.json' | relative_url }}")
-          .then(function(res) {
-            self.posts = res.data;
-          })
-          .finally(function() {
-            self.postsLoading = false;
-          });
-      })(this);
+          if (ps.length) {
+            self.filtered.push({
+              tag: tag.tag,
+              posts: ps
+            });
+          }
+        });
+      },
+      search: function(e) {
+        this.searchText = e.target.value;
+        this.filterPosts();
+      }
     }
   });
 </script>
