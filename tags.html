@@ -5,9 +5,9 @@ title: タグ一覧
 
 <main class="main-content container">
   {% raw %}
-  <div id="app">
+  <div id="app" v-cloak>
     <div class="field">
-      <p class="control has-icons-left">
+      <p class="control has-icons-left" :class="{ 'is-loading': loading }">
         <input
           class="input"
           type="text"
@@ -20,7 +20,7 @@ title: タグ一覧
       </p>
     </div>
 
-    <nav class="panel" v-for="tag in filtered" :key="tag.tag">
+    <nav class="panel" v-for="tag in filtered" v-if="!loading" :key="tag.tag">
       <p class="panel-heading">
         <span class="icon">
           <i class="fas fa-tag"></i>
@@ -46,6 +46,9 @@ title: タグ一覧
   new Vue({
     el: '#app',
     computed: {
+      loading: function() {
+        return this.postsLoading || this.tagsLoading;
+      },
       tagSet: function() {
         var ps = this.posts;
         return this.tags.map(function(tag) {
@@ -69,7 +72,8 @@ title: タグ一覧
     },
     data: function() {
       return {
-        loading: false,
+        tagsLoading: false,
+        postsLoading: false,
         searchText: '',
         tags: [],
         posts: []
@@ -92,14 +96,26 @@ title: タグ一覧
         }
       }
       (function(self) {
-        axios.get("{{ '/tags.json' | relative_url }}").then(function(res) {
-          self.tags = res.data;
-        });
+        self.tagsLoading = true;
+        axios
+          .get("{{ '/tags.json' | relative_url }}")
+          .then(function(res) {
+            self.tags = res.data;
+          })
+          .finally(function() {
+            self.tagsLoading = false;
+          });
       })(this);
       (function(self) {
-        axios.get("{{ '/index.json' | relative_url }}").then(function(res) {
-          self.posts = res.data;
-        });
+        self.postsLoading = true;
+        axios
+          .get("{{ '/index.json' | relative_url }}")
+          .then(function(res) {
+            self.posts = res.data;
+          })
+          .finally(function() {
+            self.postsLoading = false;
+          });
       })(this);
     }
   });
