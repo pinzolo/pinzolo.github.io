@@ -46,33 +46,20 @@ title: タグ一覧
   new Vue({
     el: '#app',
     computed: {
-      posts: function() {
-        var urlList = this.urlList;
-        var tagsList = this.tagsList
-        return this.titleList.map(function(title, i) {
-          return {
-            title: title,
-            url: urlList[i],
-            tags: tagsList[i]
-          };
-        });
-      },
-      tags: function() {
+      tagSet: function() {
         var ps = this.posts;
-        return this.tagsList.flat().filter(function(tag, i, self) {
-          return self.indexOf(tag) === i;
-        }).sort().map(function(tag) {
+        return this.tags.map(function(tag) {
           return {
             tag: tag,
             posts: ps.filter(function(post) {
               return post.tags.includes(tag);
             })
-          }
+          };
         });
       },
       filtered: function() {
         var txt = this.searchText;
-        return this.tags.filter(function(tag, i) {
+        return this.tagSet.filter(function(tag, i) {
           if (!txt) {
             return true;
           }
@@ -82,24 +69,38 @@ title: タグ一覧
     },
     data: function() {
       return {
+        loading: false,
         searchText: '',
-        titleList: {{ site.posts | map: "title" | jsonify }},
-        tagsList: {{ site.posts | map: "tags" | jsonify }},
-        urlList: {{ site.posts | map: "url" | jsonify }}
+        tags: [],
+        posts: []
       };
     },
     mounted: function() {
       var query = window.location.search;
       if (query) {
-        var tag = query.slice(1).split('&').map(function(e) {
-          return e.split('=');
-        }).find(function(e) {
-          return e[0] === "tag";
-        });
+        var tag = query
+          .slice(1)
+          .split('&')
+          .map(function(e) {
+            return e.split('=');
+          })
+          .find(function(e) {
+            return e[0] === 'tag';
+          });
         if (tag) {
           this.searchText = tag[1];
         }
       }
+      (function(self) {
+        axios.get("{{ '/tags.json' | relative_url }}").then(function(res) {
+          self.tags = res.data;
+        });
+      })(this);
+      (function(self) {
+        axios.get("{{ '/index.json' | relative_url }}").then(function(res) {
+          self.posts = res.data;
+        });
+      })(this);
     }
   });
 </script>

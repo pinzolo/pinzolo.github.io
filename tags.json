@@ -1,0 +1,10 @@
+---
+---
+
+{% assign arr = site.posts[0].tags %}
+{% for post in site.posts %}
+  {% for tag in post.tags %}
+    {% assign arr = arr | push: tag %}
+  {% endfor %}
+{% endfor %}
+{{ arr | uniq | sort | jsonify }}
