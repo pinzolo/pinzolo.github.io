@@ -1,0 +1,10 @@
+---
+---
+
+{
+  "ids": {{ site.posts | map: "id" | jsonify }},
+  "titles": {{ site.posts | map: "title" | jsonify }},
+  "urls": {{ site.posts | map: "url" | jsonify }},
+  "tags": {{ site.posts | map: "tags" | jsonify }},
+  "dates": {{ site.posts | map: "date" | jsonify }}
+}

@@ -102,14 +102,26 @@ title: タグ一覧
         var self = this;
         self.postsLoading = true;
         axios
-          .get("{{ '/index.json' | relative_url }}")
+          .get("{{ '/posts.json' | relative_url }}")
           .then(function(res) {
-            self.posts = res.data;
+            self.buildPosts(res.data);
             self.setup();
           })
           .finally(function() {
             self.postsLoading = false;
           });
+      },
+      buildPosts: function(data) {
+        var self = this;
+        data.ids.map(function(id, idx) {
+          self.posts.push({
+            id: id,
+            title: data.titles[idx],
+            url: data.urls[idx],
+            tags: data.tags[idx],
+            date: data.dates[idx]
+          });
+        });
       },
       setup: function() {
         if (this.posts.length === 0 || this.tags.length === 0) {
