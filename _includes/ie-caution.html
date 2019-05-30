@@ -1,0 +1,20 @@
+<article id="ie-caution" class="message is-danger is-hidden">
+  <div class="message-header">
+    <p>Caution</p>
+  </div>
+  <div class="message-body">
+    <p>
+      This site does not support Internet Explorer.<br />
+      Please use another modern browser if possible.
+    </p>
+  </div>
+</article>
+<script>
+  var ua = window.navigator.userAgent.toLowerCase();
+  if (ua.indexOf('msie') !== -1 && ua.indexOf('trident') !== -1) {
+    var caution = document.getElementById('ie-caution');
+    if (caution) {
+      caution.classList.remove('is-hidden');
+    }
+  }
+</script>
