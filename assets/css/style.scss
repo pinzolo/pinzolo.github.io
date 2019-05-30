@@ -40,6 +40,10 @@
     line-height: $TITLE_LINE_HEIGHT;
     margin-bottom: 0.5rem;
     border-bottom-color: $TITLE_BORDER_COLOR;
+    code {
+      padding: .125em .5em;
+      vertical-align: top;
+    }
   }
 
   h1 {
