@@ -5,5 +5,9 @@ layout: default
 <!-- prettier-ignore -->
 <main class="main-content container">
   {% include posts.html posts=paginator.posts %}
-  {% include pager.html prev=paginator.previous_page_path next=paginator.next_page_path %}
+  <div class="columns is-mobile">
+    <div class="column pager">
+      {% include pager.html prev=paginator.previous_page_path next=paginator.next_page_path %}
+    </div>
+  </div>
 </main>
