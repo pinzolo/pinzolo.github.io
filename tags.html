@@ -133,18 +133,20 @@ title: タグ一覧
         });
       },
       filterPosts: function() {
-        var txt = this.searchText;
+        var txt = this.searchText.toLowerCase();
         if (!txt) {
           this.filtered = [].concat(this.tagSet);
           return;
         }
         this.filtered.splice(0);
         this.tagSet.forEach(tag => {
-          if (tag.tag.includes(txt)) {
+          if (tag.tag.toLowerCase().includes(txt)) {
             this.filtered.push(tag);
             return;
           }
-          var ps = tag.posts.filter(post => post.title.includes(txt));
+          var ps = tag.posts.filter(post =>
+            post.title.toLowerCase().includes(txt)
+          );
           if (ps.length) {
             this.filtered.push({
               tag: tag.tag,
@@ -154,7 +156,7 @@ title: タグ一覧
         });
       },
       search: function(e) {
-        this.searchText = e.target.value;
+        this.searchText = e.target.value || '';
         this.filterPosts();
       }
     }
