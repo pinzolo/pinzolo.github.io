@@ -10,14 +10,14 @@ navbarBurger.addEventListener(
   false
 );
 
-var toTopButton = document.getElementById('to-top');
-if (toTopButton) {
-  toTopButton.addEventListener(
+var toTopButton = document.querySelectorAll('.to-top-button');
+toTopButton.forEach(el => {
+  el.addEventListener(
     'click',
-    function(e) {
+    e => {
       e.preventDefault();
       Jump('#top', { duration: 500 });
     },
     false
   );
-}
+});
