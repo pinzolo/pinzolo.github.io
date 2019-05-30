@@ -74,47 +74,40 @@ title: タグ一覧
           var tag = query
             .slice(1)
             .split('&')
-            .map(function(e) {
-              return e.split('=');
-            })
-            .find(function(e) {
-              return e[0] === 'tag';
-            });
+            .map(e => e.split('='))
+            .find(e => e[0] === 'tag');
           if (tag) {
             this.searchText = tag[1];
           }
         }
       },
       loadTags: function() {
-        var self = this;
-        self.tagsLoading = true;
+        this.tagsLoading = true;
         axios
           .get("{{ '/tags.json' | relative_url }}")
-          .then(function(res) {
-            self.tags = res.data;
-            self.setup();
+          .then(res => {
+            this.tags = res.data;
+            this.setup();
           })
-          .finally(function() {
-            self.tagsLoading = false;
+          .finally(() => {
+            this.tagsLoading = false;
           });
       },
       loadPosts: function() {
-        var self = this;
-        self.postsLoading = true;
+        this.postsLoading = true;
         axios
           .get("{{ '/posts.json' | relative_url }}")
-          .then(function(res) {
-            self.buildPosts(res.data);
-            self.setup();
+          .then(res => {
+            this.buildPosts(res.data);
+            this.setup();
           })
-          .finally(function() {
-            self.postsLoading = false;
+          .finally(() => {
+            this.postsLoading = false;
           });
       },
       buildPosts: function(data) {
-        var self = this;
-        data.ids.map(function(id, idx) {
-          self.posts.push({
+        data.ids.map((id, idx) => {
+          this.posts.push({
             id: id,
             title: data.titles[idx],
             url: data.urls[idx],
@@ -132,12 +125,10 @@ title: タグ一覧
       },
       setTagSet: function() {
         var ps = this.posts;
-        this.tagSet = this.tags.map(function(tag) {
+        this.tagSet = this.tags.map(tag => {
           return {
             tag: tag,
-            posts: ps.filter(function(post) {
-              return post.tags.includes(tag);
-            })
+            posts: ps.filter(post => post.tags.includes(tag))
           };
         });
       },
@@ -148,17 +139,14 @@ title: タグ一覧
           return;
         }
         this.filtered.splice(0);
-        var self = this;
-        this.tagSet.forEach(function(tag) {
+        this.tagSet.forEach(tag => {
           if (tag.tag.includes(txt)) {
-            self.filtered.push(tag);
+            this.filtered.push(tag);
             return;
           }
-          var ps = tag.posts.filter(function(post) {
-            return post.title.includes(txt);
-          });
+          var ps = tag.posts.filter(post => post.title.includes(txt));
           if (ps.length) {
-            self.filtered.push({
+            this.filtered.push({
               tag: tag.tag,
               posts: ps
             });
