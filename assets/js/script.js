@@ -1,7 +1,7 @@
 var navbarBurger = document.getElementById('navbar-burger');
 navbarBurger.addEventListener(
   'click',
-  function(e) {
+  e => {
     e.preventDefault();
     navbarBurger.classList.toggle('is-active');
     var navbarLinks = document.getElementById('navbar-links');
