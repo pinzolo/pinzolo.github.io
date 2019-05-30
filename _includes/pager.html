@@ -1,45 +1,71 @@
-<div class="container pager">
-  <div class="columns">
-    <!-- prettier-ignore -->
-    <div class="column">
-      {% if include.prev %}
-      <a class="button is-info is-outlined" href="{{ include.prev }}">
-        <span class="icon">
-          <i class="fas fa-chevron-left"></i>
-        </span>
-        Prev
-      </a>
-      {% endif %}
-      {% unless include.prev %}
-      <a class="button is-info is-outlined" disabled>
-        <span class="icon">
-          <i class="fas fa-chevron-left"></i>
-        </span>
-        Prev
-      </a>
-      {% endunless %}
-      <button id="to-top" class="button is-primary is-outlined">
-        <span class="icon">
-          <i class="fas fa-chevron-up"></i>
-        </span>
-        To top
-      </button>
-      {% if include.next %}
-      <a class="button is-info is-outlined" href="{{ include.next }}">
-        Next
-        <span class="icon">
-          <i class="fas fa-chevron-right"></i>
-        </span>
-      </a>
-      {% endif %}
-      {% unless include.next %}
-      <a class="button is-info is-outlined" disabled>
-        Next
-        <span class="icon">
-          <i class="fas fa-chevron-right"></i>
-        </span>
-      </a>
-      {% endunless %}
-    </div>
-  </div>
-</div>
+<span class="is-hidden-mobile">
+  {% if include.prev %}
+  <a class="button is-info is-outlined" href="{{ include.prev }}">
+    <span class="icon">
+      <i class="fas fa-chevron-left"></i>
+    </span>
+    <span>Prev</span>
+  </a>
+  {% endif %} {% unless include.prev %}
+  <a class="button is-info is-outlined" disabled>
+    <span class="icon">
+      <i class="fas fa-chevron-left"></i>
+    </span>
+    <span>Prev</span>
+  </a>
+  {% endunless %}
+  <button id="to-top" class="button is-primary is-outlined">
+    <span class="icon">
+      <i class="fas fa-chevron-up"></i>
+    </span>
+    <span>To top</span>
+  </button>
+  {% if include.next %}
+  <a class="button is-info is-outlined" href="{{ include.next }}">
+    <span>Next</span>
+    <span class="icon">
+      <i class="fas fa-chevron-right"></i>
+    </span>
+  </a>
+  {% endif %} {% unless include.next %}
+  <a class="button is-info is-outlined" disabled>
+    <span>Next</span>
+    <span class="icon">
+      <i class="fas fa-chevron-right"></i>
+    </span>
+  </a>
+  {% endunless %}
+</span>
+<span class="is-hidden-tablet">
+  {% if include.prev %}
+  <a class="button is-info is-outlined" href="{{ include.prev }}">
+    <span class="icon">
+      <i class="fas fa-chevron-left"></i>
+    </span>
+  </a>
+  {% endif %} {% unless include.prev %}
+  <a class="button is-info is-outlined" disabled>
+    <span class="icon">
+      <i class="fas fa-chevron-left"></i>
+    </span>
+  </a>
+  {% endunless %}
+  <button id="to-top" class="button is-primary is-outlined">
+    <span class="icon">
+      <i class="fas fa-chevron-up"></i>
+    </span>
+  </button>
+  {% if include.next %}
+  <a class="button is-info is-outlined" href="{{ include.next }}">
+    <span class="icon">
+      <i class="fas fa-chevron-right"></i>
+    </span>
+  </a>
+  {% endif %} {% unless include.next %}
+  <a class="button is-info is-outlined" disabled>
+    <span class="icon">
+      <i class="fas fa-chevron-right"></i>
+    </span>
+  </a>
+  {% endunless %}
+</span>

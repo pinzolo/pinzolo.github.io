@@ -13,5 +13,14 @@ layout: default
       {{ content }}
     </div>
   </article>
-  {% include pager.html prev=page.previous.url next=page.next.url %}
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column share-buttons">
+        {% include share-buttons.html %}
+      </div>
+      <div class="column pager">
+        {% include pager.html prev=page.previous.url next=page.next.url %}
+      </div>
+    </div>
+  </div>
 </main>
