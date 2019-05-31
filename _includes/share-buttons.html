@@ -1,7 +1,5 @@
 <a
-  href="http://twitter.com/share?url={{
-    page.url | absolute_url | uri_encode
-  }}&text={{ page.title | append: ' | ' | append: site.title | uri_escape }}"
+  href="http://twitter.com/share?url={{ page.url | absolute_url | uri_encode }}&text={{ page.title | append: ' | ' | append: site.title | uri_escape }}"
   class="button"
   target="_blank"
   rel="nofollow noopener"
@@ -11,9 +9,7 @@
   </span>
 </a>
 <a
-  href="http://www.facebook.com/share.php?u={{
-    page.url | absolute_url | uri_encode
-  }}&t={{ page.title | append: ' | ' | append: site.title | uri_escape }}"
+  href="http://www.facebook.com/share.php?u={{ page.url | absolute_url | uri_encode }}&t={{ page.title | append: ' | ' | append: site.title | uri_escape }}"
   class="button"
   target="_blank"
   rel="nofollow noopener"
@@ -22,12 +18,7 @@
     <i class="fab fa-facebook"></i>
   </span>
 </a>
-<a
-  href="http://b.hatena.ne.jp/entry/{{ page.url | absolute_url | uri_encode }}"
-  class="button"
-  target="_blank"
-  rel="nofollow noopener"
->
+<a href="http://b.hatena.ne.jp/entry/{{ page.url | absolute_url | uri_encode }}" class="button" target="_blank" rel="nofollow noopener">
   <span class="icon is-small">
     <strong>B!</strong>
   </span>
