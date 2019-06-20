@@ -55,4 +55,4 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - initipost.sh
+  - initpost.sh
