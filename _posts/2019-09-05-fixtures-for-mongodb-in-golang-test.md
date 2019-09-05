@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "fixtures for mongodb in golang test"
+title: Golang で MongoDB に fixture したい
 date: '2019-09-05T14:44:57+0900'
 tags:
   - golang
