@@ -1,17 +1,17 @@
 <span class="is-hidden-mobile">
-  {% if include.next %}
-  <a class="button is-info is-outlined" href="{{ include.next }}">
+  {% if include.prev %}
+  <a class="button is-info is-outlined" href="{{ include.prev }}">
     <span class="icon">
       <i class="fas fa-chevron-left"></i>
     </span>
-    <span>Next</span>
+    <span>Prev</span>
   </a>
-  {% endif %} {% unless include.next %}
+  {% endif %} {% unless include.prev %}
   <a class="button is-info is-outlined" disabled>
     <span class="icon">
       <i class="fas fa-chevron-left"></i>
     </span>
-    <span>Next</span>
+    <span>Prev</span>
   </a>
   {% endunless %}
   <button class="button is-primary is-outlined to-top-button">
@@ -20,16 +20,16 @@
     </span>
     <span>To top</span>
   </button>
-  {% if include.prev %}
-  <a class="button is-info is-outlined" href="{{ include.prev }}">
-    <span>Prev</span>
+  {% if include.next %}
+  <a class="button is-info is-outlined" href="{{ include.next }}">
+    <span>Next</span>
     <span class="icon">
       <i class="fas fa-chevron-right"></i>
     </span>
   </a>
-  {% endif %} {% unless include.prev %}
+  {% endif %} {% unless include.next %}
   <a class="button is-info is-outlined" disabled>
-    <span>Prev</span>
+    <span>Next</span>
     <span class="icon">
       <i class="fas fa-chevron-right"></i>
     </span>
@@ -37,13 +37,13 @@
   {% endunless %}
 </span>
 <span class="is-hidden-tablet">
-  {% if include.next %}
-  <a class="button is-info is-outlined" href="{{ include.next }}">
+  {% if include.prev %}
+  <a class="button is-info is-outlined" href="{{ include.prev }}">
     <span class="icon">
       <i class="fas fa-chevron-left"></i>
     </span>
   </a>
-  {% endif %} {% unless include.next %}
+  {% endif %} {% unless include.prev %}
   <a class="button is-info is-outlined" disabled>
     <span class="icon">
       <i class="fas fa-chevron-left"></i>
@@ -55,13 +55,13 @@
       <i class="fas fa-chevron-up"></i>
     </span>
   </button>
-  {% if include.prev %}
-  <a class="button is-info is-outlined" href="{{ include.prev }}">
+  {% if include.next %}
+  <a class="button is-info is-outlined" href="{{ include.next }}">
     <span class="icon">
       <i class="fas fa-chevron-right"></i>
     </span>
   </a>
-  {% endif %} {% unless include.prev %}
+  {% endif %} {% unless include.next %}
   <a class="button is-info is-outlined" disabled>
     <span class="icon">
       <i class="fas fa-chevron-right"></i>
