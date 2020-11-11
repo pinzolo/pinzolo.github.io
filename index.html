@@ -6,7 +6,7 @@ layout: default
   {% include posts.html posts=paginator.posts %}
   <div class="columns is-mobile">
     <div class="column pager">
-      {% include pager.html prev=paginator.previous_page_path next=paginator.next_page_path %}
+      {% include pager.html next=paginator.previous_page_path prev=paginator.next_page_path %}
     </div>
   </div>
 </main>
