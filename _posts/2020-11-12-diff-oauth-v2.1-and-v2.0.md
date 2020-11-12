@@ -8,7 +8,7 @@ tags:
 
 最近は OAuth, OpenID Connect, FIDO とすっかり AuthN, AuthZ をがっつり勉強しております。
 
-んで、7月末に WG Draft が出た [The OAuth 2\.1 Authorization Framework](https://tools.ietf.org/html/draft-ietf-oauth-v2-1) があるわけですが、勉強がてら [OAuth v2\.1 と OAuth v2\.0 の diff をとってみた](https://gist.github.com/pinzolo/732c3fe3c0c1a0ae0fefc47bac40791d)
+んで、7月末に WG Draft が出た [The OAuth 2\.1 Authorization Framework](https://tools.ietf.org/html/draft-ietf-oauth-v2-1) があるわけですが、勉強がてら OAuth v2\.1 と OAuth v2\.0 の diff をとってみた。 [diff の内容はコチラ](https://gist.github.com/pinzolo/732c3fe3c0c1a0ae0fefc47bac40791d)
 
 まあ、[Section 12.](https://tools.ietf.org/html/draft-ietf-oauth-v2-1-00#section-12) を読めば大体わかるんですがね。
 
