@@ -3,6 +3,7 @@ layout: post
 title: OAuth 2.1 と 2.0 で適当に diff をとってみた
 date: '2020-11-12T23:51:51+0900'
 tags:
+  - auth
 ---
 
 最近は OAuth, OpenID Connect, FIDO とすっかり AuthN, AuthZ をがっつり勉強しております。
