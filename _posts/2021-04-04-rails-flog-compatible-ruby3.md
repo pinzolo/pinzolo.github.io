@@ -1,7 +1,7 @@
 ---
 layout: post
 title: rails-flog を Ruby 3 に対応
-date: '2021-05-09T09:33:31+0900'
+date: '2021-04-04T09:33:31+0900'
 tags:
 ---
 
