@@ -3,6 +3,8 @@ layout: post
 title: rails-flog を Rails 6.1 に対応
 date: '2021-03-07T09:23:19+0900'
 tags:
+  - ruby
+  - rubygems
 ---
 
 [【オンライン】Kyoto\.rb Meetup 20210307 \- Kyoto\.rb \| Doorkeeper](https://kyotorb.doorkeeper.jp/events/118749) での作業ログ
