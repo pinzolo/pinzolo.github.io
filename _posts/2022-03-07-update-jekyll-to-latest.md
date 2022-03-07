@@ -54,9 +54,9 @@ CDN の URL を https://cdn.jsdelivr.net/npm/vue@2 に更新して終了。
 つぎに v4.1 にアップデートする
 
 ```ruby
-gem "jekyll", "~> 4.0.0"
+gem "jekyll", "~> 4.1.0"
 ```
 
-`bundle update` したら今度はメッセージすら表示なし。拍子抜けだ。
+`bundle update` したら今度は更新内容のメッセージすら表示なし。拍子抜けだ。
 
 GitHub の Security alerts も消えたし、これで安心してしばらく放置出来るな。
