@@ -5,8 +5,9 @@ layout: default
 <main class="main-content container">
   <article class="post-entry">
     <h1 class="title is-1 post-title">{{ page.title }}</h1>
-    <p class="post-time is-pulled-right" data-post-date="{{ page.date | date_to_xmlschema }}">
-      at {{ page.date | in_time_zone: "Asia/Tokyo" | date: '%Y-%m-%d %H:%M (%Z)' }}
+    <p class="post-time is-pulled-right" data-post-time="{{ page.date | date_to_xmlschema }}"
+      data-time-format="[at] YYYY-MM-DD HH:mm">
+      at {{ page.date | date: '%Y-%m-%d %H:%M (%Z)' }}
     </p>
     {% include tags.html tags=page.tags %}
     <div class="post-content">

@@ -2,8 +2,8 @@
   {% for post in include.posts %}
   <div class="column is-4">
     <div class="box">
-      <p class="post-time" data-post-date="{{ post.date | date_to_xmlschema }}">
-        {{ post.date | in_time_zone: "Asia/Tokyo" | date: "%Y-%m-%d (%Z)" }}
+      <p class="post-time" data-post-time="{{ post.date | date_to_xmlschema }}" data-time-format="YYYY-MM-DD">
+        {{ post.date | date: "%Y-%m-%d (%Z)" }}
       </p>
       <p class="title is-4">
         <a href="{{ post.url }}">{{ post.title }}</a>

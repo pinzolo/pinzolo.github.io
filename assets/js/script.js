@@ -22,4 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
       false
     );
   });
+
+  dayjs.locale("ja");
+  var postTimeElms = document.querySelectorAll(".post-time");
+  postTimeElms.forEach(el => {
+    el.innerHTML = dayjs(el.dataset["postTime"]).format(el.dataset["timeFormat"]);
+  });
 });
