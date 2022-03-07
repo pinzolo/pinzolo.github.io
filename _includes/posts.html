@@ -3,7 +3,7 @@
   <div class="column is-4">
     <div class="box">
       <p class="post-time">
-        {{ post.date | date: "%Y-%m-%d" }}
+        {{ post.date | in_time_zone: "Asia/Tokyo" | date: "%Y-%m-%d" }}
       </p>
       <p class="title is-4">
         <a href="{{ post.url }}">{{ post.title }}</a>
