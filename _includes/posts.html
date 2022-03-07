@@ -3,7 +3,7 @@
   <div class="column is-4">
     <div class="box">
       <p class="post-time" data-post-time="{{ post.date | date_to_xmlschema }}" data-time-format="YYYY-MM-DD">
-        {{ post.date | date: "%Y-%m-%d (%Z)" }}
+        {{ post.date | date: "%Y-%m-%d" }}
       </p>
       <p class="title is-4">
         <a href="{{ post.url }}">{{ post.title }}</a>
