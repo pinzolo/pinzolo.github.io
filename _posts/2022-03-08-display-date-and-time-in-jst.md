@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Display date and time in JST"
+title: "記事作成日時を JST で表示するようにした"
 date: '2022-03-08T10:27:14+0900'
 tags:
   - blog
