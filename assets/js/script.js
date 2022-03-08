@@ -28,4 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
   postTimeElms.forEach(el => {
     el.innerHTML = dayjs(el.dataset["postTime"]).format(el.dataset["timeFormat"]);
   });
+
+  var images = document.getElementsByTagName("img");
+  Array.prototype.forEach.call(images, img => {
+    console.log(img);
+    if (img.parentNode.tagName === "P") {
+      img.parentNode.classList.add("img-container");
+    }
+  })
 });
