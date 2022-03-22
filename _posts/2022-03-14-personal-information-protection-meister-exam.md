@@ -28,7 +28,12 @@ Fintech に携わっている以上、個人情報保護やマイナンバーに
 
 しかし、その法改正に対応した公式テキストの発売が試験の3日前とはどういうことだ！？
 
-{% twitter https://twitter.com/shosen_bt_pc/status/1502226429098233857 %}
+{% raw %}
+<blockquote class="twitter-tweet">
+  <a href="https://twitter.com/shosen_bt_pc/status/1502226429098233857"></a>
+</blockquote>
+{% endraw %}
+
 
 よほど主催する有料セミナーなどに行かせたいんだなという感想しかない。
 
