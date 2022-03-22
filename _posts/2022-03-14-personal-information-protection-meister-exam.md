@@ -29,11 +29,8 @@ Fintech に携わっている以上、個人情報保護やマイナンバーに
 しかし、その法改正に対応した公式テキストの発売が試験の3日前とはどういうことだ！？
 
 {% raw %}
-<blockquote class="twitter-tweet">
-  <a href="https://twitter.com/shosen_bt_pc/status/1502226429098233857"></a>
-</blockquote>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">3/10新刊『改訂7版 個人情報保護士認定試験公式テキスト』<a href="https://twitter.com/hashtag/%E6%97%A5%E6%9C%AC%E8%83%BD%E7%8E%87%E5%8D%94%E4%BC%9A%E3%83%9E%E3%83%8D%E3%82%B8%E3%83%A1%E3%83%B3%E3%83%88%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC?src=hash&amp;ref_src=twsrc%5Etfw">#日本能率協会マネジメントセンター</a> （978-4-8207-2997-6）柴原健次,坂東利国, 克元亮, 福田啓二, 井海宏通,山口透, 鈴木伸一郎 著 中村博 監修◆「PC試験」棚にて！2022年の法に対応した <a href="https://twitter.com/hashtag/%E5%80%8B%E4%BA%BA%E6%83%85%E5%A0%B1%E4%BF%9D%E8%AD%B7%E5%A3%AB%E8%AA%8D%E5%AE%9A%E8%A9%A6%E9%A8%93?src=hash&amp;ref_src=twsrc%5Etfw">#個人情報保護士認定試験</a> の公式テキストです！ <a href="https://t.co/8XMKtreqyR">pic.twitter.com/8XMKtreqyR</a></p>&mdash; 書泉ブックタワーコンピュータ書【営業時間11:00~20:00】 (@shosen_bt_pc) <a href="https://twitter.com/shosen_bt_pc/status/1502226429098233857?ref_src=twsrc%5Etfw">March 11, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endraw %}
-
 
 よほど主催する有料セミナーなどに行かせたいんだなという感想しかない。
 
